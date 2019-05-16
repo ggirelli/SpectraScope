@@ -286,5 +286,13 @@ $(document).ready(function() {
     initFluorophoreList();
     initFilterList();
     plotSpectraViewer();
+    $("#expand-all").click(function(e) {
+      $('.accordion .collapse').removeClass('collapse').addClass('ex-collapse');
+      e.preventDefault();
+    });
+    $("#collapse-all").click(function(e) {
+      $('.ex-collapse').removeClass('ex-collapse').addClass('collapse');
+      e.preventDefault();
+    });
 });
 $(window).resize(plotSpectraViewer);
