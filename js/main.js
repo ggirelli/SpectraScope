@@ -18,50 +18,39 @@ var plotSpectrum = function(data1, name, color, dashed = false) {
   if ( dashed ) {
     vis.append("path")
       .datum(data)
-      .attr("class", "line")
+      .attr("class", "line fluoSpectra")
       .attr("fill", color).attr("fill-opacity", 0.3)
       .attr("stroke", color).attr("stroke-width", 2)
       .attr("stroke-dasharray", 4)
-      .attr("name", name+"_ex")
+      .attr("name", name)
       .attr("d", d3.line()
         .x(function(d) { return x(d.w); })
         .y(function(d) { return y(1-d.ri); }));
   } else {
     vis.append("path")
       .datum(data)
-      .attr("class", "line")
+      .attr("class", "line fluoSpectra")
       .attr("fill", color).attr("fill-opacity", 0.3)
       .attr("stroke", color).attr("stroke-width", 2)
-      .attr("name", name+"_ex")
+      .attr("name", name)
       .attr("d", d3.line()
         .x(function(d) { return x(d.w); })
         .y(function(d) { return y(1-d.ri); }));
   }
-}
-
-plotFilterSpectrum = function(data1, name, color) {
-  var data = [{'w':parseFloat(data1[data1.length-1].w), "ri":0}];
-  for (var i = data1.length - 1; i >= 0; i--) {
-    data.push({'w':parseFloat(data1[i].w), "ri":parseFloat(data1[i].ri)});
-  }
-  data.push({'w':parseFloat(data1[0].w), "ri":0});
-
-  var svg = d3.select("#d3wrapper svg"),
-    width = +svg.attr("width") - margin.left - margin.right,
-    height = +svg.attr("height") - margin.top - margin.bottom,
-    x = d3.scaleLinear().domain(visRange).range([0, width]),
-    y = d3.scaleLinear().domain([0, 1]).range([0, height]);
-
-  var vis = d3.select("#d3wrapper svg g");
-  vis.insert("path", ":first-child")
-    .datum(data)
-    .attr("class", "line")
-    .attr("fill", "#323232").attr("fill-opacity", 0.3)
-    .attr("stroke", color).attr("stroke-width", 2)
-    .attr("name", name+"_filter")
-    .attr("d", d3.line()
-      .x(function(d) { return x(d.w); })
-      .y(function(d) { return y(1-d.ri); }));
+  $("path[name='"+name+"']").mouseenter(function(e) {
+    var name = $(this).attr("name").split("_")[0];
+    var desc = $("#fluorophores .selection a[data-name='"+name+"']").text();
+    $("#short-details").val(desc);
+  });
+  $("path[name='"+name+"']").mouseleave(function(e) {
+    $("#short-details").val("");
+  });
+  $("path[name='"+name+"']").click(function(e) {
+    var name = $(this).attr("name");
+    var desc = $("#fluorophores .selection a[data-name='"+name.split("_")[0]+"'] small").text();
+    $.get("data/fluorophore-spectra/"+name+".tsv", {},
+      function(data) { $("#extended_details").text(name+" "+desc+"\n"+data); })
+  });
 }
 
 var plotFluorophore = function(name, color) {
@@ -112,6 +101,45 @@ var initFluorophoreList = function() {
           }).css({'display':'none'});
         listRmWrap.prepend(fluObj2);
       }
+  });
+}
+
+var plotFilterSpectrum = function(data1, name, color) {
+  var data = [{'w':parseFloat(data1[data1.length-1].w), "ri":0}];
+  for (var i = data1.length - 1; i >= 0; i--) {
+    data.push({'w':parseFloat(data1[i].w), "ri":parseFloat(data1[i].ri)});
+  }
+  data.push({'w':parseFloat(data1[0].w), "ri":0});
+
+  var svg = d3.select("#d3wrapper svg"),
+    width = +svg.attr("width") - margin.left - margin.right,
+    height = +svg.attr("height") - margin.top - margin.bottom,
+    x = d3.scaleLinear().domain(visRange).range([0, width]),
+    y = d3.scaleLinear().domain([0, 1]).range([0, height]);
+
+  var vis = d3.select("#d3wrapper svg g");
+  vis.insert("path", ":first-child")
+    .datum(data)
+    .attr("class", "line")
+    .attr("fill", "#323232").attr("fill-opacity", 0.3)
+    .attr("stroke", color).attr("stroke-width", 2)
+    .attr("name", name+"_filter")
+    .attr("d", d3.line()
+      .x(function(d) { return x(d.w); })
+      .y(function(d) { return y(1-d.ri); }));
+  $("path[name='"+name+"_filter']").mouseenter(function(e) {
+    var name = $(this).attr("name").split("_")[0];
+    var desc = $("#filters .selection a[data-name='"+name+"']").text();
+    $("#short-details").val(desc);
+  });
+  $("path[name='"+name+"_filter']").mouseleave(function(e) {
+    $("#short-details").val("");
+  });
+  $("path[name='"+name+"_filter']").click(function(e) {
+    var name = $(this).attr("name").split("_")[0];
+    var desc = $("#filters .selection a[data-name='"+name+"'] small").text();
+    $.get("data/filter-spectra/"+name+".tsv", {},
+      function(data) { $("#extended_details").text(name+" "+desc+"\n"+data); })
   });
 }
 
