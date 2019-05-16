@@ -210,11 +210,29 @@ var plotSpectraViewer = function () {
     g.selectAll(".tick:not(:first-of-type) line").attr("stroke", "#777").attr("stroke-dasharray", "2,2");
     g.selectAll(".tick text").attr("x", -20).attr("dy", 2);
   }
+
+  var activeFilters = $('#filters .selection a').filter(function() {
+    return $(this).css('display') != 'none';
+  });
+  for (var i = activeFilters.length - 1; i >= 0; i--) {
+    name = $(activeFilters[i]).attr("data-name");
+    color = $(activeFilters[i]).attr("data-color");
+    plotFilter(name, color);
+  }
+
+  var activeFluos = $('#fluorophores .selection a').filter(function() {
+    return $(this).css('display') != 'none';
+  });
+  for (var i = activeFluos.length - 1; i >= 0; i--) {
+    name = $(activeFluos[i]).attr("data-name");
+    color = $(activeFluos[i]).attr("data-color");
+    plotFluorophore(name, color);
+  }
 }
 
 $(document).ready(function() {
-    plotSpectraViewer();
     initFluorophoreList();
     initFilterList();
+    plotSpectraViewer();
 });
 $(window).resize(plotSpectraViewer);
