@@ -1,4 +1,4 @@
-var margin = {top: 20, right: 20, bottom: 20, left: 30},
+var margin = {top: 40, right: 20, bottom: 20, left: 40},
   visRange = [250, 900];
 
 var plotSpectrum = function(data1, name, color, dashed = false) {
@@ -220,17 +220,27 @@ var plotSpectraViewer = function () {
         return "\xa0" + s;
       });
 
-  g.append("g")
-      .attr("transform", "translate(0," + height + ")")
-      .call(customXAxis);
-  g.append("g").call(customYAxis);
-
+  console.log((visRange[1]+visRange[0])/2-margin.left)
+  svg.append("text")
+      .attr("transform", "translate("+((visRange[1]+visRange[0])/2-margin.left)+","+(margin.top/3)+")")
+      .style("text-anchor", "middle")
+      .text("Wavelength (nm)");
+  svg.append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 0)
+      .attr("x", -svg.attr("height")/2)
+      .attr("dy", "1em")
+      .style("text-anchor", "middle")
+      .text("Relative Intensity (a.u.)"); 
   function customXAxis(g) {
     g.call(xAxis);
     g.select(".domain").remove();
     g.selectAll(".tick:not(:first-of-type) line").attr("stroke", "#777").attr("stroke-dasharray", "2,2");
     g.selectAll(".tick text").attr("x", -4).attr("dy", -4);
   }
+  g.append("g")
+      .attr("transform", "translate(0," + height + ")")
+      .call(customXAxis);
 
   function customYAxis(g) {
     g.call(yAxis);
@@ -238,6 +248,20 @@ var plotSpectraViewer = function () {
     g.selectAll(".tick:not(:first-of-type) line").attr("stroke", "#777").attr("stroke-dasharray", "2,2");
     g.selectAll(".tick text").attr("x", -20).attr("dy", 2);
   }
+  g.append("g").call(customYAxis);
+
+  svg.on("mousemove", function() {
+    var mouse = d3.mouse(this);
+    var width = +$(this).attr("width") - margin.left - margin.right;
+    var height = +$(this).attr("height") - margin.top - margin.bottom;
+    mouse[0] = mouse[0] - margin.left;
+    mouse[0] = d3.scaleLinear().domain([0, width]).range(visRange)(mouse[0]);
+    mouse[0] = Math.round(mouse[0]*10)/10;
+    mouse[1] = height - mouse[1] + margin.top;
+    mouse[1] = d3.scaleLinear().domain([0, height]).range([0, 1])(mouse[1]);
+    mouse[1] = Math.round(mouse[1]*100)/100;
+    $("#mouse-coords").text(mouse);
+  });
 
   var activeFilters = $('#filters .selection a').filter(function() {
     return $(this).css('display') != 'none';
