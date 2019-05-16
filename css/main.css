@@ -1,0 +1,51 @@
+html, body {
+	font-family: "Roboto";
+}
+
+header {
+	padding-bottom: 1em;
+	border-bottom: 1px solid #eaeaea;
+}
+
+footer {
+	padding-top: 1em;
+	border-top: 1px solid #dadada;
+}
+
+h1 {
+	font-family: "Baloo Bhai";
+}
+
+#d3wrapper {
+	min-height: 250px;
+	overflow: auto;
+	text-align: center;
+}
+
+.btn-block:hover,
+.btn-block:visited,
+.btn-block:focus {
+	text-decoration: none;
+}
+
+.option-list {
+	padding-top: 0.2em;
+	max-height: 20em;
+	overflow: auto;
+}
+
+.option-list a.btn {
+	border: 1px solid #323232;
+}
+.option-list a.btn:hover {
+	background-color: #efefef;
+}
+
+.option-list a.btn span.fluColor {
+	display: inline-block;
+	margin-right: 0.5em;
+	width: 1em;
+	height: 1em;
+	border-radius: 0.5em;
+	border: 0.5px solid black;
+}

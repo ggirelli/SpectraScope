@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>GG-SpectraViewer</title>
+
+  <!--jQuery-->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+	<!--Bootstrap-->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+	<!--FontAwesome-->
+	<script defer src="https://use.fontawesome.com/releases/v5.8.2/js/all.js" integrity="sha384-DJ25uNYET2XCl5ZF++U8eNxPWqcKohUUBUpKGlNLMchM7q4Wjg2CUpjHLaL8yYPH" crossorigin="anonymous"></script>
+
+	<!--D3-->
+	<script src="https://d3js.org/d3.v4.min.js"></script>
+
+	<!--GoogleFonts-->
+	<link href="https://fonts.googleapis.com/css?family=Baloo+Bhai|Roboto:300" rel="stylesheet">
+
+	<link rel="stylesheet" href="css/main.css">
+
+  <script src="js/get_color.js"></script>
+	<script src="js/main.js"></script>
+</head>
+<body>
+	<div class="row">
+		<header class="mt-5 mb-5 col col-10 offset-1">
+			<h1 class="text-center"><i class="fas fa-ghost"></i> SpectraScope <i class="fas fa-microscope" onClick="javascript:wave=prompt('Insert wavelength (in nm) or \'reset\' to reset.');color = wave == 'reset' ? 'white' : get_color(wave); $('body').css('background-color', color);"></i></h1>
+		</header>
+		<article class="col col-10 offset-1"><div class="row">
+
+      <div class="col col-12 mb-4">
+        <div class="container">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia ducimus consequatur velit. Minus corrupti pariatur esse, nemo enim omnis, amet vitae officiis quam magnam praesentium ab minima laboriosam voluptas molestias.
+
+          <input class="form-control mt-3" type="text" placeholder="Move over a spectrum with the mouse to see its details here." disabled />
+        </div>
+      </div>
+
+			<div id="page-content" class="col-12 mb-4">
+				<div class="card">
+					<div class="card-body">
+						<div id="d3wrapper">
+              <svg></svg>      
+            </div>
+					</div>
+				</div>
+			</div>
+
+      <div id="sidebar-left" class="col-12 col-lg-6 mb-4">
+        <div class="card">
+          <div class="card-header"><i class="fas fa-cog"></i> Settings</div>
+          <div class="card-body">
+
+            <div class="accordion" id="accordion-settings">
+              <div class="card">
+                <div class="card-header" id="headingOne"><h2 class="mb-0">
+                  <button class="btn btn-link collapsed btn-block text-left text-dark" type="button" data-toggle="collapse" data-target="#settings-filters" aria-expanded="true" aria-controls="settings-filters"><i class="fas fa-filter"></i> Filters</button>
+                </h2></div>
+                <div id="settings-filters" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion-settings"><div class="card-body">
+                  <small>Click to add to current selection.</small>
+                  <div class="option-list"></div>
+                </div></div>
+              </div>
+              <div class="card">
+                <div class="card-header" id="headingTwo"><h2 class="mb-0">
+                  <button class="btn btn-link collapsed btn-block text-left text-dark" type="button" data-toggle="collapse" data-target="#settings-fluorophores" aria-expanded="false" aria-controls="settings-fluorophores"><i class="fas fa-tint"></i> Fluorophores</button>
+                </h2></div>
+                <div id="settings-fluorophores" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion-settings"><div class="card-body">
+                  <small>Click to add to current selection.</small>
+                  <div class="option-list"></div>
+                </div></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div id="sidebar-right" class="col-12 col-lg-6 mb-4">
+        <div class="card">
+          <div class="card-header text-right">Selection <i class="far fa-hand-pointer"></i></div>
+          <div class="card-body">
+
+            <div class="accordion" id="accordion-selection">
+              <div class="card">
+                <div class="card-header" id="headingOne"><h2 class="mb-0">
+                  <button class="btn btn-link collapsed btn-block text-right text-dark" type="button" data-toggle="collapse" data-target="#selection-filters" aria-expanded="true" aria-controls="selection-filters">Filters <i class="fas fa-filter"></i></button>
+                </h2></div>
+                <div id="selection-filters" class="collapse" aria-labelledby="headingOne" data-parent="#accordion-selection"><div class="card-body">
+                  <small>Click to remove from current selection.</small>
+                  <div class="option-list"></div>
+                </div></div>
+              </div>
+              <div class="card">
+                <div class="card-header" id="headingTwo"><h2 class="mb-0">
+                  <button class="btn btn-link collapsed btn-block text-right text-dark" type="button" data-toggle="collapse" data-target="#selection-fluorophores" aria-expanded="false" aria-controls="selection-fluorophores">Fluorophores <i class="fas fa-tint"></i></button>
+                </h2></div>
+                <div id="selection-fluorophores" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion-selection"><div class="card-body">
+                  <small>Click to remove from current selection.</small>
+                  <div class="option-list"></div>
+                </div></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="col col-12"><div class="container">
+        <textarea class="form-control" name="extended_details" id="extended_details" cols="30" rows="10" disabled></textarea><small>Click on a portion of the spectra to see its extensive details here.</small>
+      </div></div>
+
+		</article>
+		<footer class="mt-5 col col-10 offset-1 text-center">
+			Gabriele Girelli &copy; 2019
+		</footer>
+	</div>
+</body>
+</html>
