@@ -25,7 +25,3 @@ If you want to reporte a **bug**, please use the github [issue tracker](https://
 ## How to suggest a feature or enhancement
 
 If you would like to see a new feature implemented in `SpectraScope`, or to have an already existing feature improved, please use the github [issue tracker](https://github.com/ggirelli/spectrascope/issues) and follow the template that should automatically load up.
-
-# Style your contributions
-
-We like to have `SpectraScope` code styled according to the following style guides. Although we might be inconsistent sometimes (that's a bad habit!), we tend to go through the code and re-format it every once in a while.
