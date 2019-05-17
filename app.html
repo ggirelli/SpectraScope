@@ -3,7 +3,7 @@
 <head>
 	<title>GG-SpectraViewer</title>
 
-  <!--jQuery-->
+	<!--jQuery-->
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
 
 	<!--Bootstrap-->
@@ -22,7 +22,7 @@
 
 	<link rel="stylesheet" href="css/main.css">
 
-  <script type="text/src" src="https://cdn.jsdelivr.net/gh/ggirelli/wave2color/src/get_color.js" crossorigin="anonymous"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/ggirelli/wave2color/src/get_color.js" crossorigin="anonymous"></script>
 	<script src="js/main.js"></script>
 </head>
 <body>
@@ -32,95 +32,95 @@
 		</header>
 		<article class="col col-10 offset-1"><div class="row">
 
-      <div class="col col-12 mb-4">
-        <div class="container">
-          <p>Click filters/fluorophores (from <i class="fas fa-cog"></i>) to add them to the graph. Click on the selected filters/fluorophores (from <i class="far fa-hand-pointer"></i>) to remove them from the graph. <b>Hover over</b> a spectrum to visualize a short description below this paragraph. <b>Click</b> on a spectrum to visualize the raw data at the end of the page.</p>
+			<div class="col col-12 mb-4">
+				<div class="container">
+					<p>Click filters/fluorophores (from <i class="fas fa-cog"></i>) to add them to the graph. Click on the selected filters/fluorophores (from <i class="far fa-hand-pointer"></i>) to remove them from the graph. <b>Hover over</b> a spectrum to visualize a short description below this paragraph. <b>Click</b> on a spectrum to visualize the raw data at the end of the page.</p>
 
-          <small><b>Notice!</b> This interface has been developed for GoogleChrome (v74) and FireFox (v66). Thus, it may not be fully compatible with other browsers (e.g., Safari, IExplorer,...).</small>
+					<small><b>Notice!</b> This interface has been developed for GoogleChrome (v74) and FireFox (v66). Thus, it may not be fully compatible with other browsers (e.g., Safari, IExplorer,...).</small>
 
-          <input id="short-details" class="form-control mt-3" type="text" placeholder="Move over a spectrum with the mouse to see its details here." disabled />
-        </div>
-      </div>
+					<input id="short-details" class="form-control mt-3" type="text" placeholder="Move over a spectrum with the mouse to see its details here." disabled />
+				</div>
+			</div>
 
 			<div id="page-content" class="col-12 mb-4">
 				<div class="card">
 					<div class="card-body">
-            <p><small>Mouse coordinates (wavelength, relative intensity): <span id="mouse-coords">...</span></small></p>
+						<p><small>Mouse coordinates (wavelength, relative intensity): <span id="mouse-coords">...</span></small></p>
 						<div id="d3wrapper">
-              <svg></svg>      
-            </div>
+							<svg></svg>      
+						</div>
 					</div>
 				</div>
 			</div>
 
-      <div id="sidebar-left" class="col-12 col-lg-6 mb-4">
-        <div class="card">
-          <div class="card-header"><i class="fas fa-cog"></i> Settings <small style="float: right;"><a href="#" id="expand-all"><i class="far fa-plus-square"></i> expand all</a></small></div>
-          <div class="card-body">
+			<div id="sidebar-left" class="col-12 col-lg-6 mb-4">
+				<div class="card">
+					<div class="card-header"><i class="fas fa-cog"></i> Settings <small style="float: right;"><a href="#" id="expand-all"><i class="far fa-plus-square"></i> expand all</a></small></div>
+					<div class="card-body">
 
-            <div class="accordion" id="accordion-settings">
-              <div class="card">
-                <div class="card-header" id="headingOne"><h2 class="mb-0">
-                  <button class="btn btn-link collapsed btn-block text-left text-dark" type="button" data-toggle="collapse" data-target="#filters" aria-expanded="true" aria-controls="filters"><i class="fas fa-filter"></i> Filters</button>
-                </h2></div>
-                <div id="filters" class="collapse" aria-labelledby="headingOne" data-parent="#accordion-settings"><div class="card-body">
-                  <small>Click to add to current selection.</small>
-                  <div class="settings option-list"></div>
-                </div></div>
-              </div>
-              <div class="card">
-                <div class="card-header" id="headingTwo"><h2 class="mb-0">
-                  <button class="btn btn-link collapsed btn-block text-left text-dark" type="button" data-toggle="collapse" data-target="#fluorophores" aria-expanded="false" aria-controls="fluorophores"><i class="fas fa-tint"></i> Fluorophores</button>
-                </h2></div>
-                <div id="fluorophores" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion-settings"><div class="card-body">
-                  <small>Click to add to current selection.</small>
-                  <div class="settings option-list"></div>
-                </div></div>
-              </div>
-            </div>
+						<div class="accordion" id="accordion-settings">
+							<div class="card">
+								<div class="card-header" id="headingOne"><h2 class="mb-0">
+									<button class="btn btn-link collapsed btn-block text-left text-dark" type="button" data-toggle="collapse" data-target="#filters" aria-expanded="true" aria-controls="filters"><i class="fas fa-filter"></i> Filters</button>
+								</h2></div>
+								<div id="filters" class="collapse" aria-labelledby="headingOne" data-parent="#accordion-settings"><div class="card-body">
+									<small>Click to add to current selection.</small>
+									<div class="settings option-list"></div>
+								</div></div>
+							</div>
+							<div class="card">
+								<div class="card-header" id="headingTwo"><h2 class="mb-0">
+									<button class="btn btn-link collapsed btn-block text-left text-dark" type="button" data-toggle="collapse" data-target="#fluorophores" aria-expanded="false" aria-controls="fluorophores"><i class="fas fa-tint"></i> Fluorophores</button>
+								</h2></div>
+								<div id="fluorophores" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion-settings"><div class="card-body">
+									<small>Click to add to current selection.</small>
+									<div class="settings option-list"></div>
+								</div></div>
+							</div>
+						</div>
 
-          </div>
-        </div>
-      </div>
+					</div>
+				</div>
+			</div>
 
-      <div id="sidebar-right" class="col-12 col-lg-6 mb-4">
-        <div class="card">
-          <div class="card-header text-right"><small style="float: left;"><a href="#" id="collapse-all"><i class="far fa-minus-square"></i> collapse all</a></small> Selection <i class="far fa-hand-pointer"></i></div>
-          <div class="card-body">
+			<div id="sidebar-right" class="col-12 col-lg-6 mb-4">
+				<div class="card">
+					<div class="card-header text-right"><small style="float: left;"><a href="#" id="collapse-all"><i class="far fa-minus-square"></i> collapse all</a></small> Selection <i class="far fa-hand-pointer"></i></div>
+					<div class="card-body">
 
-            <div class="accordion" id="accordion-selection">
-              <div class="card">
-                <div class="card-header" id="headingOne"><h2 class="mb-0">
-                  <button class="btn btn-link collapsed btn-block text-right text-dark" type="button" data-toggle="collapse" data-target="#filters" aria-expanded="true" aria-controls="filters">Filters <i class="fas fa-filter"></i></button>
-                </h2></div>
-                <div id="filters" class="collapse" aria-labelledby="headingOne" data-parent="#accordion-selection"><div class="card-body">
-                  <small>Click to remove from current selection.</small>
-                  <div class="selection option-list"></div>
-                </div></div>
-              </div>
-              <div class="card">
-                <div class="card-header" id="headingTwo"><h2 class="mb-0">
-                  <button class="btn btn-link collapsed btn-block text-right text-dark" type="button" data-toggle="collapse" data-target="#fluorophores" aria-expanded="false" aria-controls="fluorophores">Fluorophores <i class="fas fa-tint"></i></button>
-                </h2></div>
-                <div id="fluorophores" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion-selection"><div class="card-body">
-                  <small>Click to remove from current selection.</small>
-                  <div class="selection option-list"></div>
-                </div></div>
-              </div>
-            </div>
+						<div class="accordion" id="accordion-selection">
+							<div class="card">
+								<div class="card-header" id="headingOne"><h2 class="mb-0">
+									<button class="btn btn-link collapsed btn-block text-right text-dark" type="button" data-toggle="collapse" data-target="#filters" aria-expanded="true" aria-controls="filters">Filters <i class="fas fa-filter"></i></button>
+								</h2></div>
+								<div id="filters" class="collapse" aria-labelledby="headingOne" data-parent="#accordion-selection"><div class="card-body">
+									<small>Click to remove from current selection.</small>
+									<div class="selection option-list"></div>
+								</div></div>
+							</div>
+							<div class="card">
+								<div class="card-header" id="headingTwo"><h2 class="mb-0">
+									<button class="btn btn-link collapsed btn-block text-right text-dark" type="button" data-toggle="collapse" data-target="#fluorophores" aria-expanded="false" aria-controls="fluorophores">Fluorophores <i class="fas fa-tint"></i></button>
+								</h2></div>
+								<div id="fluorophores" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion-selection"><div class="card-body">
+									<small>Click to remove from current selection.</small>
+									<div class="selection option-list"></div>
+								</div></div>
+							</div>
+						</div>
 
-          </div>
-        </div>
-      </div>
+					</div>
+				</div>
+			</div>
 
-      <div class="col col-12"><div class="container">
-        <textarea class="form-control" name="extended_details" id="extended_details" cols="30" rows="10" disabled></textarea><small>Click on a portion of the spectra to see its extensive details here.</small>
-      </div></div>
+			<div class="col col-12"><div class="container">
+				<textarea class="form-control" name="extended_details" id="extended_details" cols="30" rows="10" disabled></textarea><small>Click on a portion of the spectra to see its extensive details here.</small>
+			</div></div>
 
 		</article>
 		<footer class="mt-5 col col-10 offset-1 text-center">
 			<p>Gabriele Girelli &copy; 2019 | <a href="https://github.com/ggirelli/SpectraScope"><i class="fab fa-github"></i></a> | <a href="https://github.com/ggirelli/SpectraScope/issues">Feedback</a></p>
-      <p><small>Powered by: <a href="https://jquery.com/">jQuery</a>, <a href="https://d3js.org/">D3.js</a>, <a href="https://fontawesome.com">Font Awesome</a>, <a href="https://getbootstrap.com/docs/4.3/">Bootstrap v4.3</a>, <a href="https://fonts.google.com/">Google Fonts</a></small></p>
+			<p><small>Powered by: <a href="https://jquery.com/">jQuery</a>, <a href="https://d3js.org/">D3.js</a>, <a href="https://fontawesome.com">Font Awesome</a>, <a href="https://getbootstrap.com/docs/4.3/">Bootstrap v4.3</a>, <a href="https://fonts.google.com/">Google Fonts</a></small></p>
 		</footer>
 	</div>
 </body>
