@@ -1,14 +1,14 @@
 # SpectraScope
 Interactive interface to visualize spectra and filter sets for any microscope. Easily customizable.
 
-The idea behind of **SpectraScope** is to provide users with an *easy-to-use* web-interface, that can be directly downloaded and run locally, where to visualize fluorophores and microscope filter sets of interest. This can be invaluable when setting up new optical configurations or designing new experiments.
+The idea behind **SpectraScope** is to provide users with an *easy-to-use* web-interface (that can be directly downloaded and run locally) where to visualize fluorophores and microscope filter sets of interest. This can be invaluable when setting up new optical configurations or designing new microscopy-based experiments.
 
 **Notice!** This interface has been developed for GoogleChrome (v74) and FireFox (v66).  
 Thus, it may not be fully compatible with other browsers (e.g., Safari, IExplorer,...).
 
 Live demo
 ---
-A live demo of **SpectraScope**, click on the screenshot below to access the demo.  
+A live demo of **SpectraScope**, click on the screenshot below to access it.  
 [![demo-screenshot](data/screenshot.png)](https://ggirelli.github.io/SpectraScope/app.html)
 
 Features
