@@ -41,7 +41,7 @@ h1 {
 	background-color: #efefef;
 }
 
-.option-list a.btn span.fluColor {
+a.btn span.fluColor {
 	display: inline-block;
 	margin-right: 0.5em;
 	width: 1em;
