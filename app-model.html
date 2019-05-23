@@ -10,6 +10,10 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	
+	<!--BoostratpToggle-->
+	<link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.4.0/css/bootstrap4-toggle.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.4.0/js/bootstrap4-toggle.min.js"></script>
 
 	<!--FontAwesome-->
 	<script defer src="https://use.fontawesome.com/releases/v5.8.2/js/all.js" integrity="sha384-DJ25uNYET2XCl5ZF++U8eNxPWqcKohUUBUpKGlNLMchM7q4Wjg2CUpjHLaL8yYPH" crossorigin="anonymous"></script>
@@ -28,11 +32,11 @@
 <body>
 	<div class="row">
 		<header class="mt-5 mb-5 col col-10 offset-1">
-			<h1 class="text-center"><i class="fas fa-ghost"></i> SpectraScope <i class="fas fa-microscope" onClick="javascript:wave=prompt('Insert wavelength (in nm) or \'reset\' to reset.');color = wave == 'reset' ? 'white' : get_color(wave); $('body').css('background-color', color);"></i></h1>
+			<h1 class="text-center"><i class="fas fa-ghost"></i> SpectraScope <i class="fas fa-microscope" onClick="javascript:wave=prompt('Insert wavelength (in nm) or \'reset\' to reset.');color = wave == 'reset' ? 'white' : get_color(wave); $('body').css('background-color', color);"></i> Model <i class="fas fa-wave-square"></i></h1>
 
 			<ul class="nav justify-content-end">
-				<li class="nav-item"><a class="nav-link disabled" href="#"><i class="fas fa-home"></i> Home</a></li>
-				<li class="nav-item"><a class="nav-link" href="app-model.html"><i class="fas fa-wave-square"></i> Model</a></li>
+				<li class="nav-item"><a class="nav-link" href="app.html"><i class="fas fa-home"></i> Home</a></li>
+				<li class="nav-item"><a class="nav-link disabled" href="#"><i class="fas fa-wave-square"></i> Model</a></li>
 				<li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-sliders-h"></i> Settings</a></li>
 			</ul>
 		</header>
@@ -40,7 +44,7 @@
 
 			<div class="col col-12 mb-4">
 				<div class="container">
-					<p>Click filters/fluorophores (from <i class="fas fa-sign-in-alt"></i>) to add them to the graph. Click on the selected filters/fluorophores (from <i class="far fa-hand-pointer"></i>) to remove them from the graph. <b>Hover over</b> a spectrum to visualize a short description below this paragraph. <b>Click</b> on a spectrum to visualize the raw data at the end of the page.</p>
+					<p>Click one of each source/ex-filter/em-filter/fluorophore (from <i class="fas fa-sign-in-alt"></i>) to add them to the graph. Click on the selected features (from <i class="far fa-hand-pointer"></i>) to remove them from the graph. <b>Hover over</b> a spectrum to visualize a short description below this paragraph. <b>Click</b> on a spectrum to visualize the raw data at the end of the page.</p>
 
 					<small><b>Notice!</b> This interface has been developed for GoogleChrome (v74) and FireFox (v66). Thus, it may not be fully compatible with other browsers (e.g., Safari, IExplorer,...).</small>
 
@@ -55,13 +59,52 @@
 						<div id="d3wrapper">
 							<svg></svg>      
 						</div>
+						<div class="alert alert-light mb-0"><input type="checkbox" id="model-trigger" name="model-trigger" data-toggle="toggle" data-size="sm" data-onstyle="info" /> <label  onclick="$('#model-trigger').bootstrapToggle('toggle')">Model source/fluorophore intensity through the selected filters.</label></div>
 					</div>
 				</div>
 			</div>
 
-			<div id="sidebar-left" class="col-12 col-lg-6 mb-4">
+			<div id="selection" class="col-12 mb-4">
+				<div class="row">
+					<div class="col col-3">
+						<div class="card mb-1">
+							<div class="card-header text-right">Selected Source <i class="far fa-hand-pointer"></i></div>
+							<div class="card-body">
+								<a class="btn btn-block btn-light disabled">unselected</a>
+							</div>
+						</div>
+					</div>
+					<div class="col col-3">
+						<div class="card mb-1">
+							<div class="card-header text-right">Selected Excitation Filter <i class="far fa-hand-pointer"></i></div>
+							<div class="card-body">
+								<a class="btn btn-block btn-light disabled">unselected</a>
+							</div>
+						</div>
+					</div>
+					<div class="col col-3">
+						<div class="card mb-1">
+							<div class="card-header text-right">Selected Fluorophore<i class="far fa-hand-pointer"></i></div>
+							<div class="card-body">
+								<a class="btn btn-block btn-light disabled">unselected</a>
+							</div>
+						</div>
+					</div>
+					<div class="col col-3">
+						<div class="card mb-1">
+							<div class="card-header text-right">Selected Emission Filter<i class="far fa-hand-pointer"></i></div>
+							<div class="card-body">
+								<a class="btn btn-block btn-light disabled">unselected</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<p class="mb-1"><small><i class="far fa-hand-pointer"></i> Click on a selected feature to remove it from the current selection.</small></p>
+			</div>
+
+			<div id="input" class="col-12">
 				<div class="card">
-					<div class="card-header"><i class="fas fa-sign-in-alt"></i> Input <small style="float: right;"><a href="#" id="expand-all"><i class="far fa-plus-square"></i> expand all</a></small></div>
+					<div class="card-header"><i class="fas fa-sign-in-alt"></i> Input</div>
 					<div class="card-body">
 
 						<div class="accordion" id="accordion-settings">
@@ -76,9 +119,9 @@
 							</div>
 							<div class="card">
 								<div class="card-header" id="headingOne"><h2 class="mb-0">
-									<button class="btn btn-link collapsed btn-block text-left text-dark" type="button" data-toggle="collapse" data-target="#filters" aria-expanded="true" aria-controls="filters"><i class="fas fa-filter"></i> Filters</button>
+									<button class="btn btn-link collapsed btn-block text-left text-dark" type="button" data-toggle="collapse" data-target="#ex-filters" aria-expanded="true" aria-controls="ex-filters"><i class="fas fa-filter"></i> Excitation Filters</button>
 								</h2></div>
-								<div id="filters" class="collapse" aria-labelledby="headingOne" data-parent="#accordion-settings"><div class="card-body">
+								<div id="ex-filters" class="collapse" aria-labelledby="headingOne" data-parent="#accordion-settings"><div class="card-body">
 									<small>Click to add to current selection.</small>
 									<div class="settings option-list"></div>
 								</div></div>
@@ -92,43 +135,13 @@
 									<div class="settings option-list"></div>
 								</div></div>
 							</div>
-						</div>
-
-					</div>
-				</div>
-			</div>
-
-			<div id="sidebar-right" class="col-12 col-lg-6 mb-4">
-				<div class="card">
-					<div class="card-header text-right"><small style="float: left;"><a href="#" id="collapse-all"><i class="far fa-minus-square"></i> collapse all</a></small> Selected <i class="far fa-hand-pointer"></i></div>
-					<div class="card-body">
-
-						<div class="accordion" id="accordion-selection">
 							<div class="card">
 								<div class="card-header" id="headingOne"><h2 class="mb-0">
-									<button class="btn btn-link collapsed btn-block text-right text-dark" type="button" data-toggle="collapse" data-target="#sources" aria-expanded="true" aria-controls="sources">Sources <i class="far fa-lightbulb"></i></button>
+									<button class="btn btn-link collapsed btn-block text-left text-dark" type="button" data-toggle="collapse" data-target="#em-filters" aria-expanded="true" aria-controls="em-filters"><i class="fas fa-filter"></i> Emission Filters</button>
 								</h2></div>
-								<div id="sources" class="collapse" aria-labelledby="headingOne" data-parent="#accordion-selection"><div class="card-body">
-									<small>Click to remove from current selection.</small>
-									<div class="selection option-list"></div>
-								</div></div>
-							</div>
-							<div class="card">
-								<div class="card-header" id="headingOne"><h2 class="mb-0">
-									<button class="btn btn-link collapsed btn-block text-right text-dark" type="button" data-toggle="collapse" data-target="#filters" aria-expanded="true" aria-controls="filters">Filters <i class="fas fa-filter"></i></button>
-								</h2></div>
-								<div id="filters" class="collapse" aria-labelledby="headingOne" data-parent="#accordion-selection"><div class="card-body">
-									<small>Click to remove from current selection.</small>
-									<div class="selection option-list"></div>
-								</div></div>
-							</div>
-							<div class="card">
-								<div class="card-header" id="headingTwo"><h2 class="mb-0">
-									<button class="btn btn-link collapsed btn-block text-right text-dark" type="button" data-toggle="collapse" data-target="#fluorophores" aria-expanded="false" aria-controls="fluorophores">Fluorophores <i class="fas fa-tint"></i></button>
-								</h2></div>
-								<div id="fluorophores" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion-selection"><div class="card-body">
-									<small>Click to remove from current selection.</small>
-									<div class="selection option-list"></div>
+								<div id="em-filters" class="collapse" aria-labelledby="headingOne" data-parent="#accordion-settings"><div class="card-body">
+									<small>Click to add to current selection.</small>
+									<div class="settings option-list"></div>
 								</div></div>
 							</div>
 						</div>
