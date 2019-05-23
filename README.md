@@ -16,6 +16,7 @@ Features
 
 * Visualize excitation/emission spectra of any fluorophore of interest in the 250-900 nm range. The fluorophore color is automatically selected based on the emission peak in the visible range by using the [wave2color](https://github.com/ggirelli/wave2color) functions.
 * Visualize the transmission spectrum of any filter set of interest, overlayed to the fluorophore spectra.
+* Visualize the intensity spectrum of any light source of interest, overlayed to the fluorophore spectra.
 * Explore the spectra with the mouse, seeing the precise relative intensity and wavelength of any point of interest.
 * Quickly see a brief description of any spectrum by hovering over it with the mouse, and access the raw data by clicking on them.
 
@@ -39,8 +40,8 @@ Please, notice that **GoogleChrome** does not allow `crossorigin` requests from 
 Usage
 ---
 
-1. <u>Click</u> on the filters/fluorophores (from the *Settings* panel) to add them to the graph.
-2. <u>Click</u> on the selected filters/fluorophores (from the *Selection* panel) to remove them from the graph.
+1. <u>Click</u> on the sources/filters/fluorophores (from the *Input* panel) to add them to the graph.
+2. <u>Click</u> on the selected filters/fluorophores (from the *Selected* panel) to remove them from the graph.
 3. <u>Hover</u> over a spectrum to visualize a short description below this paragraph.
 4. <u>Click</u> on a spectrum to visualize the raw data at the end of the page.
 
