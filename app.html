@@ -61,6 +61,15 @@
 						<div class="accordion" id="accordion-settings">
 							<div class="card">
 								<div class="card-header" id="headingOne"><h2 class="mb-0">
+									<button class="btn btn-link collapsed btn-block text-left text-dark" type="button" data-toggle="collapse" data-target="#sources" aria-expanded="true" aria-controls="sources"><i class="fa fa-lightbulb"></i> Sources</button>
+								</h2></div>
+								<div id="sources" class="collapse" aria-labelledby="headingOne" data-parent="#accordion-settings"><div class="card-body">
+									<small>Click to add to current selection.</small>
+									<div class="settings option-list"></div>
+								</div></div>
+							</div>
+							<div class="card">
+								<div class="card-header" id="headingOne"><h2 class="mb-0">
 									<button class="btn btn-link collapsed btn-block text-left text-dark" type="button" data-toggle="collapse" data-target="#filters" aria-expanded="true" aria-controls="filters"><i class="fas fa-filter"></i> Filters</button>
 								</h2></div>
 								<div id="filters" class="collapse" aria-labelledby="headingOne" data-parent="#accordion-settings"><div class="card-body">
@@ -89,6 +98,15 @@
 					<div class="card-body">
 
 						<div class="accordion" id="accordion-selection">
+							<div class="card">
+								<div class="card-header" id="headingOne"><h2 class="mb-0">
+									<button class="btn btn-link collapsed btn-block text-right text-dark" type="button" data-toggle="collapse" data-target="#sources" aria-expanded="true" aria-controls="sources">Sources <i class="far fa-lightbulb"></i></button>
+								</h2></div>
+								<div id="sources" class="collapse" aria-labelledby="headingOne" data-parent="#accordion-selection"><div class="card-body">
+									<small>Click to remove from current selection.</small>
+									<div class="selection option-list"></div>
+								</div></div>
+							</div>
 							<div class="card">
 								<div class="card-header" id="headingOne"><h2 class="mb-0">
 									<button class="btn btn-link collapsed btn-block text-right text-dark" type="button" data-toggle="collapse" data-target="#filters" aria-expanded="true" aria-controls="filters">Filters <i class="fas fa-filter"></i></button>

@@ -16,7 +16,7 @@ var plotSpectrum = function(data1, name, color, dashed = false) {
 
   var vis = d3.select("#d3wrapper svg g");
   if ( dashed ) {
-    vis.append("path")
+    vis.insert("path")
       .datum(data)
       .attr("class", "line fluoSpectra")
       .attr("fill", color).attr("fill-opacity", 0.3)
@@ -27,7 +27,7 @@ var plotSpectrum = function(data1, name, color, dashed = false) {
         .x(function(d) { return x(d.w); })
         .y(function(d) { return y(1-d.ri); }));
   } else {
-    vis.append("path")
+    vis.insert("path")
       .datum(data)
       .attr("class", "line fluoSpectra")
       .attr("fill", color).attr("fill-opacity", 0.3)
@@ -118,7 +118,7 @@ var plotFilterSpectrum = function(data1, name, color) {
     y = d3.scaleLinear().domain([0, 1]).range([0, height]);
 
   var vis = d3.select("#d3wrapper svg g");
-  vis.insert("path", ":first-child")
+  vis.append("path", ":first-child")
     .datum(data)
     .attr("class", "line")
     .attr("fill", "#323232").attr("fill-opacity", 0.3)
@@ -190,6 +190,96 @@ var initFilterList = function() {
             e.preventDefault();
           }).css({'display':'none'});
         listRmWrap.prepend(filObj2);
+      }
+  });
+}
+
+var plotSourceSpectrum = function(data1, name, color) {
+  var data = [{'w':parseFloat(data1[data1.length-1].w), "ri":0}];
+  for (var i = data1.length - 1; i >= 0; i--) {
+    data.push({'w':parseFloat(data1[i].w), "ri":parseFloat(data1[i].ri)});
+  }
+  data.push({'w':parseFloat(data1[0].w), "ri":0});
+
+  var svg = d3.select("#d3wrapper svg"),
+    width = +svg.attr("width") - margin.left - margin.right,
+    height = +svg.attr("height") - margin.top - margin.bottom,
+    x = d3.scaleLinear().domain(visRange).range([0, width]),
+    y = d3.scaleLinear().domain([0, 1]).range([0, height]);
+
+  var vis = d3.select("#d3wrapper svg g");
+  vis.append("path", ":first-child")
+    .datum(data)
+    .attr("class", "line")
+    .attr("fill", "#fefefe").attr("fill-opacity", 0.5)
+    .attr("stroke", color).attr("stroke-width", 2)
+    .attr("stroke-dasharray", 4)
+    .attr("name", name+"_filter")
+    .attr("d", d3.line()
+      .x(function(d) { return x(d.w); })
+      .y(function(d) { return y(1-d.ri); }));
+  $("path[name='"+name+"_filter']").mouseenter(function(e) {
+    var name = $(this).attr("name").split("_")[0];
+    var desc = $("#sources .selection a[data-name='"+name+"']").text();
+    $("#short-details").val("source: " + desc);
+  });
+  $("path[name='"+name+"_filter']").mouseleave(function(e) {
+    $("#short-details").val("");
+  });
+  $("path[name='"+name+"_filter']").click(function(e) {
+    var name = $(this).attr("name").split("_")[0];
+    var desc = $("#sources .selection a[data-name='"+name+"'] small").text();
+    $.get("data/source-spectra/"+name+".tsv", {},
+      function(data) { $("#extended_details").text("source: "+name+" "+desc+"\n"+data); })
+  });
+}
+
+var plotSource = function(name, color) {
+  d3.tsv("data/source-spectra/"+name+".tsv", function(data1) {
+    plotSourceSpectrum(data1, name, color);
+  });
+}
+
+var initSourceList = function() {
+  d3.tsv("data/sources.tsv", function(data) {
+      var listAddWrap = $("#sources .option-list.settings");
+      var listRmWrap = $("#sources .option-list.selection");
+      for (var i = data.length - 1; i >= 0; i--) {
+        if ( data[i].color == "auto" ) { data[i].color = get_color(data[i].peak); }
+        var fluColor = $("<span></span>")
+          .css({'background-color':data[i].color})
+          .addClass("fluColor");
+
+        if ( "" == data[i].customDescription ) {
+          data[i].customDescription = data[i].peak+"/"+data[i].width;
+        }
+        var detailSmall = $("<small> ("+data[i].details+")</small>");
+
+        var lightObj = $("<a href='#'>"+data[i].name+"</a>")
+          .attr("data-name", data[i].name)
+          .attr("data-color", data[i].color)
+          .addClass("btn btn-block")
+          .prepend(fluColor).append(detailSmall);
+        var lightObj2 = lightObj.clone();
+
+        lightObj.click(function(e) {
+            var name = $(this).attr("data-name"),
+              color = $(this).attr("data-color");
+            $(this).css({'display':'none'})
+            $("#sources .selection a[data-name='"+name+"']").removeAttr("style");
+            plotSource(name, color);
+            e.preventDefault();
+          });
+        listAddWrap.prepend(lightObj);
+
+        lightObj2.click(function(e) {
+            var name = $(this).attr("data-name");
+            $(this).css({'display':'none'})
+            $("#sources .settings a[data-name='"+name+"']").removeAttr("style");
+            $("path[name='"+name+"_filter'").remove();
+            e.preventDefault();
+          }).css({'display':'none'});
+        listRmWrap.prepend(lightObj2);
       }
   });
 }
@@ -283,8 +373,9 @@ var plotSpectraViewer = function () {
 }
 
 $(document).ready(function() {
-    initFluorophoreList();
+    initSourceList();
     initFilterList();
+    initFluorophoreList();
     plotSpectraViewer();
     $("#expand-all").click(function(e) {
       $('.accordion .collapse').removeClass('collapse').addClass('ex-collapse');
