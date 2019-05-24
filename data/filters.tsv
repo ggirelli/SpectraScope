@@ -1,13 +1,15 @@
-name	producer	start	width	color	nickname	customDescription
-Custom QuadriBand	Chroma	none	none	#FFFFFF	CY5,DAPI,TMR	420/40,560/20,661/29,790/35
-Custom TriBand	Chroma	none	none	#FFFFFF	AF594	520/30,617/27,705/35
-CYAN-490-20	Chroma	490	20	auto	AF488
-DM FF506-Di03	Semrock	506	Inf	auto	AF488	
-DM FF605-Di02	Semrock	605	Inf	auto	AF594	
-DM FF740-Di01	Semrock	740	Inf	auto	AF700	
-DM T760	Chroma	760	Inf	auto	CY7	
+name	producer	mid	width	color	nickname	customDescription
+Custom QuadriBand	Chroma	none	none	#FFFFFF	CY5,DAPI,TMR	440/40,570/20,676/29,807/35
+Custom TriBand	Chroma	none	none	#FFFFFF	AF594	535/30,630/27,723/35
+CYAN-490-20	Chroma	490	20	auto	AF488	
+DM FF506-Di03	Semrock	506	none	auto	AF488	
+DM FF605-Di02	Semrock	605	none	auto	AF594	
+DM FF740-Di01	Semrock	740	none	auto	AF700	
+DM T760	Chroma	760	none	auto	CY7	
+DM T810	Chroma	810	none	#B100FF	IR800	
 EM ET740	Chroma	740	40	auto	AF700	
 EM ET810-90	Chroma	810	90	#E000BF	CY7	
+EM ET832-27		832	27	#B100FF	IR800	
 EM FF01-527-20	Semrock	527	20	auto	AF488	
 EM FF01-567-15	Semrock	567	15	auto	TMR	
 EM FF01-628-32	Semrock	628	32	auto	AF594	
@@ -19,10 +21,10 @@ EX FF01-494-20	Semrock	494	20	auto	AF488
 EX FF01-534-20	Semrock	534	20	auto	AF542,TMR	
 EX FF01-586-20	Semrock	586	20	auto	AF594	
 EX LL01-780-12	Semrock	780	12	auto	CY7	
-FF01-534-20	Semrock	534	20	auto	AF488,TMR,CY3
-FF01-586-20	Semrock	586	20	auto	AF594
-FF01-690-8	Semrock	690	8	auto	AF700
-LL01-780-5	Semrock	780	5	auto	IR800
-NIR-760-10	Chroma	760	10	auto	
-Red-631-28	Lumencor	631	28	auto	AF594,CY5
-UV-360-28	Lumencor	360	28	auto	DAPI
+FF01-534-20	Semrock	534	20	auto	AF488,TMR,CY3	
+FF01-586-20	Semrock	586	20	auto	AF594	
+FF01-690-8	Semrock	690	8	auto	AF700	
+LL01-780-5	Semrock	780	5	auto	IR800	
+NIR-760-10	Chroma	760	10	auto	IR800	
+Red-631-28	Lumencor	631	28	auto	AF594,CY5	
+UV-360-28	Lumencor	360	28	#C804FF	DAPI	

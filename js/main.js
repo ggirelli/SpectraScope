@@ -154,13 +154,17 @@ var initFilterList = function() {
       var listAddWrap = $("#filters .option-list.settings");
       var listRmWrap = $("#filters .option-list.selection");
       for (var i = data.length - 1; i >= 0; i--) {
-        if ( data[i].color == "auto" ) { data[i].color = get_color(data[i].start); }
+        if ( data[i].color == "auto" ) { data[i].color = get_color(data[i].mid); }
         var fluColor = $("<span></span>")
           .css({'background-color':data[i].color})
           .addClass("fluColor");
 
         if ( "" == data[i].customDescription ) {
-          data[i].customDescription = data[i].start+"/"+data[i].width;
+          if ( "none" == data[i].width) {
+            data[i].customDescription = data[i].mid;
+          } else {
+            data[i].customDescription = data[i].mid+"/"+data[i].width;
+          }
         }
         var waveSmall = $("<small> ("+data[i].customDescription+")</small>");
         var nickSmall = $("<small> ("+data[i].nickname+")</small>");
