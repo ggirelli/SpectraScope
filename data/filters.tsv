@@ -18,3 +18,11 @@ EX FF01-494-20	Semrock	494	20	auto	AF488
 EX FF01-534-20	Semrock	534	20	auto	AF542,TMR	
 EX FF01-586-20	Semrock	586	20	auto	AF594	
 EX LL01-780-12	Semrock	780	12	auto	CY7	
+UV-360-28	Lumencor	360	28	auto	DAPI
+CYAN-490-20	Chroma	490	20	auto	AF488
+FF01-534-20	Semrock	534	20	auto	AF488,TMR,CY3
+FF01-586-20	Semrock	586	20	auto	AF594
+Red-631-28	Lumencor	631	28	auto	AF594,CY5
+FF01-690-8	Semrock	690	8	auto	AF700
+NIR-760-10	Chroma	760	10	auto	
+LL01-780-5	Semrock	780	5	auto	IR800
