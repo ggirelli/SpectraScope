@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<script>window.$ = window.jQuery = require('jquery');</script>
-	<link rel="stylesheet" href="./css/bootstrap.v4.3.1.min.css" rel="stylesheet" />
-	<script src="./js/popper.v1.14.7.min.js"></script>
-	<script src="./js/bootstrap.v4.3.1.min.js"></script>
-	<script defer src="./js/fontawesome.v5.8.2.js"></script>
-	<script src="./js/d3.v5.min.js"></script>
-	<link href="./css/google-fonts.css" rel="stylesheet" />
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'" />
+	<script src="./js/startup.js"></script>
+	<link rel="stylesheet" href="./css/vendor/bootstrap.v4.3.1.min.css" rel="stylesheet" />
+	<script src="./js/vendor/popper.v1.14.7.min.js"></script>
+	<script src="./js/vendor/bootstrap.v4.3.1.min.js"></script>
+	<script defer src="./js/vendor/fontawesome.v5.8.2.js"></script>
+	<link href="./css/vendor/google-fonts.css" rel="stylesheet" />
 	<link href="./css/main.css" rel="stylesheet">
 	<script src="./js/get_color.js"></script>
 	<script src="./js/home.js"></script>
@@ -20,7 +20,7 @@
 
 			<ul class="nav justify-content-end">
 				<li class="nav-item"><a class="nav-link disabled" href=""><i class="fas fa-home"></i> Home</a></li>
-				<li class="nav-item"><a class="nav-link" href="./index-model.html"><i class="fas fa-wave-square"></i> Model</a></li>
+				<!--<li class="nav-item"><a class="nav-link" href="./index-model.html"><i class="fas fa-wave-square"></i> Model</a></li>-->
 				<li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-cog"></i> Settings</a></li>
 			</ul>
 		</header>
@@ -54,7 +54,7 @@
 
 			<div id="sidebar-left" class="col-12 col-lg-6 mb-4">
 				<div class="card">
-					<div class="card-header"><i class="fas fa-greater-than"></i> Input <small style="float: right;"><a href="#" id="expand-all"><i class="far fa-plus-square"></i> expand all</a></small></div>
+					<div class="card-header"><i class="fas fa-greater-than"></i> Input <small class="float-right"><a href="#" id="expand-all"><i class="far fa-plus-square"></i> expand all</a></small></div>
 					<div class="card-body">
 
 						<div class="accordion" id="accordion-settings">
@@ -116,7 +116,7 @@
 
 			<div id="sidebar-right" class="col-12 col-lg-6 mb-4">
 				<div class="card">
-					<div class="card-header text-right"><small style="float: left;"><a href="#" id="collapse-all"><i class="far fa-minus-square"></i> collapse all</a></small> Selected <i class="far fa-hand-pointer"></i></div>
+					<div class="card-header text-right"><small class="float-left"><a href="#" id="collapse-all"><i class="far fa-minus-square"></i> collapse all</a></small> Selected <i class="far fa-hand-pointer"></i></div>
 					<div class="card-body">
 
 						<div class="accordion" id="accordion-selection">

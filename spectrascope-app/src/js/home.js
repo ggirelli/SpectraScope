@@ -62,16 +62,16 @@ var plotSpectrum = function(data1, name, color, dashed = false) {
 }
 
 var plotFluorophore = function(name, color) {
-  d3.tsv("data/fluorophore-spectra/"+name+"_ex.tsv").then(function(data1) {
+  d3.tsv("./data/fluorophore-spectra/"+name+"_ex.tsv").then(function(data1) {
     plotSpectrum(data1, name+"_ex", color, true)
   });
-  d3.tsv("data/fluorophore-spectra/"+name+"_em.tsv").then(function(data1) {
+  d3.tsv("./data/fluorophore-spectra/"+name+"_em.tsv").then(function(data1) {
     plotSpectrum(data1, name+"_em", color)
   });
 }
 
 var initFluorophoreList = function() {
-  return(d3.tsv("data/fluorophores.tsv").then(function(data) {
+  return(d3.tsv("./data/fluorophores.tsv").then(function(data) {
       var listAddWrap = $("#fluorophores .option-list.settings");
       listAddWrap.children().remove();
       var listRmWrap = $("#fluorophores .option-list.selection");
@@ -154,13 +154,13 @@ var plotFilterSpectrum = function(data1, name, color) {
 }
 
 var plotFilter = function(name, color) {
-  d3.tsv("data/filter-spectra/"+name+".tsv").then(function(data1) {
+  d3.tsv("./data/filter-spectra/"+name+".tsv").then(function(data1) {
     plotFilterSpectrum(data1, name, color);
   });
 }
 
 var initFilterList = function(ftype) {
-  return(d3.tsv("data/filters.tsv").then(function(data) {
+  return(d3.tsv("./data/filters.tsv").then(function(data) {
       var listAddWrap = $("#"+ftype+"-filters .option-list.settings");
       listAddWrap.children().remove();
       var listRmWrap = $("#"+ftype+"-filters .option-list.selection");
@@ -259,13 +259,13 @@ var plotSourceSpectrum = function(data1, name, color) {
 }
 
 var plotSource = function(name, color) {
-  d3.tsv("data/source-spectra/"+name+".tsv").then(function(data1) {
+  d3.tsv("./data/source-spectra/"+name+".tsv").then(function(data1) {
     plotSourceSpectrum(data1, name, color);
   });
 }
 
 var initSourceList = function() {
-  return(d3.tsv("data/sources.tsv").then(function(data) {
+  return(d3.tsv("./data/sources.tsv").then(function(data) {
       var listAddWrap = $("#sources .option-list.settings");
       listAddWrap.children().remove();
       var listRmWrap = $("#sources .option-list.selection");
