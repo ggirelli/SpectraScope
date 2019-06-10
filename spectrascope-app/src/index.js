@@ -1,4 +1,6 @@
-const { app, BrowserWindow, shell } = require('electron')
+const { app, BrowserWindow, shell } = require('electron');
+const eset = require('electron-settings');
+require('./js/settings.fn.js');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
@@ -32,6 +34,11 @@ const createWindow = () => {
     // when you should delete the corresponding element.
     mainWindow = null;
   });
+
+  if ( !eset.has("templates") ) {
+    mk_default_settings();
+  };
+
 };
 
 // This method will be called when Electron has finished
