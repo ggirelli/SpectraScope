@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>SpectraScope v0.0.3</title>
+	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+
+	<!--jQuery-->
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+
+	<!--Bootstrap-->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+	<!--FontAwesome-->
+	<script defer src="https://use.fontawesome.com/releases/v5.8.2/js/all.js" integrity="sha384-DJ25uNYET2XCl5ZF++U8eNxPWqcKohUUBUpKGlNLMchM7q4Wjg2CUpjHLaL8yYPH" crossorigin="anonymous"></script>
+
+	<!--D3-->
+	<script src="https://d3js.org/d3.v5.min.js"></script>
+
+	<!--GoogleFonts-->
+	<link href="https://fonts.googleapis.com/css?family=Baloo+Bhai|Roboto:300" rel="stylesheet">
+
+	<link rel="stylesheet" href="css/main.css">
+
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/ggirelli/wave2color/src/get_color.js" crossorigin="anonymous"></script>
+	<script src="js/main.js"></script>
+</head>
+<body>
+	<div class="row">
+		<header class="mt-5 mb-5 col col-10 offset-1">
+			<h1 class="text-center"><i class="fas fa-ghost"></i> SpectraScope <i class="fas fa-microscope" onClick="javascript:wave=prompt('Insert wavelength (in nm) or \'reset\' to reset.');color = wave == 'reset' ? 'white' : get_color(wave); $('body').css('background-color', color);"></i></h1>
+
+			<ul class="nav justify-content-end">
+				<li class="nav-item"><a class="nav-link disabled" href=""><i class="fas fa-home"></i> Home</a></li>
+				<!--<li class="nav-item"><a class="nav-link" href="app-model.html"><i class="fas fa-wave-square"></i> Model</a></li>-->
+			</ul>
+		</header>
+		<article class="col col-10 offset-1"><div class="row">
+
+			<div class="col col-12 mb-4">
+				<div class="container">
+					<p>Click filters/fluorophores (from <i class="fas fa-greater-than"></i>) to add them to the graph. Click on the selected filters/fluorophores (from <i class="far fa-hand-pointer"></i>) to remove them from the graph. <b>Hover over</b> a spectrum to visualize a short description below this paragraph. <b>Click</b> on a spectrum to visualize the raw data at the end of the page.</p>
+
+					<small><b>Notice!</b> This interface has been developed for GoogleChrome (v74) and FireFox (v66). Thus, it may not be fully compatible with other browsers (e.g., Safari, IExplorer,...).</small>
+
+					<select name="scope-select" id="scope-select" class="form-control mt-3">
+						<option value="useall">Use all parts</option>
+					</select>
+					<small>Select a microscope to visualize light sources and optical components associated with it.</small>
+
+					<input id="short-details" class="form-control mt-3" type="text" placeholder="Move over a spectrum with the mouse to see its details here." disabled />
+				</div>
+			</div>
+
+			<div id="page-content" class="col-12 mb-4">
+				<div class="card">
+					<div class="card-body">
+						<p><small>Mouse coordinates (wavelength, relative intensity): <span id="mouse-coords">...</span></small></p>
+						<div id="d3wrapper">
+							<svg></svg>      
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div id="sidebar-left" class="col-12 col-lg-6 mb-4">
+				<div class="card">
+					<div class="card-header"><i class="fas fa-greater-than"></i> Input <small style="float: right;"><a href="#" id="expand-all"><i class="far fa-plus-square"></i> expand all</a></small></div>
+					<div class="card-body">
+
+						<div class="accordion" id="accordion-settings">
+							<!--Light sources-->
+							<div class="card">
+								<div class="card-header" id="headingOne"><h2 class="mb-0">
+									<button class="btn btn-link collapsed btn-block text-left text-dark" type="button" data-toggle="collapse" data-target="#sources" aria-expanded="true" aria-controls="sources"><i class="fa fa-lightbulb"></i> Sources</button>
+								</h2></div>
+								<div id="sources" class="collapse" aria-labelledby="headingOne" data-parent="#accordion-settings"><div class="card-body">
+									<small>Click to add to current selection.</small>
+									<div class="settings option-list"></div>
+								</div></div>
+							</div>
+							<!--Excitation filters-->
+							<div class="card">
+								<div class="card-header" id="headingOne"><h2 class="mb-0">
+									<button class="btn btn-link collapsed btn-block text-left text-dark" type="button" data-toggle="collapse" data-target="#EX-filters" aria-expanded="true" aria-controls="EX-filters"><i class="fas fa-sign-in-alt"></i> Excitation Filters</button>
+								</h2></div>
+								<div id="EX-filters" class="collapse" aria-labelledby="headingOne" data-parent="#accordion-settings"><div class="card-body">
+									<small>Click to add to current selection.</small>
+									<div class="settings option-list"></div>
+								</div></div>
+							</div>
+							<!--Dicroic mirrors-->
+							<div class="card">
+								<div class="card-header" id="headingOne"><h2 class="mb-0">
+									<button class="btn btn-link collapsed btn-block text-left text-dark" type="button" data-toggle="collapse" data-target="#DM-filters" aria-expanded="true" aria-controls="DM-filters"><i class="fas fa-divide"></i> Dicroic Mirrors</button>
+								</h2></div>
+								<div id="DM-filters" class="collapse" aria-labelledby="headingOne" data-parent="#accordion-settings"><div class="card-body">
+									<small>Click to add to current selection.</small>
+									<div class="settings option-list"></div>
+								</div></div>
+							</div>
+							<!--Emission filters-->
+							<div class="card">
+								<div class="card-header" id="headingOne"><h2 class="mb-0">
+									<button class="btn btn-link collapsed btn-block text-left text-dark" type="button" data-toggle="collapse" data-target="#EM-filters" aria-expanded="true" aria-controls="EM-filters"><i class="fas fa-sign-out-alt"></i> Emission Filters</button>
+								</h2></div>
+								<div id="EM-filters" class="collapse" aria-labelledby="headingOne" data-parent="#accordion-settings"><div class="card-body">
+									<small>Click to add to current selection.</small>
+									<div class="settings option-list"></div>
+								</div></div>
+							</div>
+							<!--Fluorophores-->
+							<div class="card">
+								<div class="card-header" id="headingTwo"><h2 class="mb-0">
+									<button class="btn btn-link collapsed btn-block text-left text-dark" type="button" data-toggle="collapse" data-target="#fluorophores" aria-expanded="false" aria-controls="fluorophores"><i class="fas fa-tint"></i> Fluorophores</button>
+								</h2></div>
+								<div id="fluorophores" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion-settings"><div class="card-body">
+									<small>Click to add to current selection.</small>
+									<div class="settings option-list"></div>
+								</div></div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+			<div id="sidebar-right" class="col-12 col-lg-6 mb-4">
+				<div class="card">
+					<div class="card-header text-right"><small style="float: left;"><a href="#" id="collapse-all"><i class="far fa-minus-square"></i> collapse all</a></small> Selected <i class="far fa-hand-pointer"></i></div>
+					<div class="card-body">
+
+						<div class="accordion" id="accordion-selection">
+							<!--Light Sources-->
+							<div class="card">
+								<div class="card-header" id="headingOne"><h2 class="mb-0">
+									<button class="btn btn-link collapsed btn-block text-right text-dark" type="button" data-toggle="collapse" data-target="#sources" aria-expanded="true" aria-controls="sources">Sources <i class="far fa-lightbulb"></i></button>
+								</h2></div>
+								<div id="sources" class="collapse" aria-labelledby="headingOne" data-parent="#accordion-selection"><div class="card-body">
+									<small>Click to remove from current selection.</small>
+									<div class="selection option-list"></div>
+								</div></div>
+							</div>
+							<!--Excitation Filters-->
+							<div class="card">
+								<div class="card-header" id="headingOne"><h2 class="mb-0">
+									<button class="btn btn-link collapsed btn-block text-right text-dark" type="button" data-toggle="collapse" data-target="#EX-filters" aria-expanded="true" aria-controls="EX-filters">Excitation Filters <i class="fas fa-sign-in-alt"></i></button>
+								</h2></div>
+								<div id="EX-filters" class="collapse" aria-labelledby="headingOne" data-parent="#accordion-selection"><div class="card-body">
+									<small>Click to remove from current selection.</small>
+									<div class="selection option-list"></div>
+								</div></div>
+							</div>
+							<!--Dicroic Mirrors-->
+							<div class="card">
+								<div class="card-header" id="headingOne"><h2 class="mb-0">
+									<button class="btn btn-link collapsed btn-block text-right text-dark" type="button" data-toggle="collapse" data-target="#DM-filters" aria-expanded="true" aria-controls="DM-filters">Dicroic Mirrors <i class="fas fa-divide"></i></button>
+								</h2></div>
+								<div id="DM-filters" class="collapse" aria-labelledby="headingOne" data-parent="#accordion-selection"><div class="card-body">
+									<small>Click to remove from current selection.</small>
+									<div class="selection option-list"></div>
+								</div></div>
+							</div>
+							<!--Emission Filters-->
+							<div class="card">
+								<div class="card-header" id="headingOne"><h2 class="mb-0">
+									<button class="btn btn-link collapsed btn-block text-right text-dark" type="button" data-toggle="collapse" data-target="#EM-filters" aria-expanded="true" aria-controls="EM-filters">Emission Filters <i class="fas fa-sign-out-alt"></i></button>
+								</h2></div>
+								<div id="EM-filters" class="collapse" aria-labelledby="headingOne" data-parent="#accordion-selection"><div class="card-body">
+									<small>Click to remove from current selection.</small>
+									<div class="selection option-list"></div>
+								</div></div>
+							</div>
+							<!--Fluorophores-->
+							<div class="card">
+								<div class="card-header" id="headingTwo"><h2 class="mb-0">
+									<button class="btn btn-link collapsed btn-block text-right text-dark" type="button" data-toggle="collapse" data-target="#fluorophores" aria-expanded="false" aria-controls="fluorophores">Fluorophores <i class="fas fa-tint"></i></button>
+								</h2></div>
+								<div id="fluorophores" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion-selection"><div class="card-body">
+									<small>Click to remove from current selection.</small>
+									<div class="selection option-list"></div>
+								</div></div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+			<div class="col col-12"><div class="container">
+				<textarea class="form-control" name="extended_details" id="extended_details" cols="30" rows="10" disabled></textarea><small>Click on a portion of the spectra to see its extensive details here.</small>
+			</div></div>
+
+		</article>
+		<footer class="mt-5 col col-10 offset-1 text-center">
+			<p>Gabriele Girelli &copy; 2019 | <a href="https://ggirelli.github.io/SpectraScope/"><i class="fas fa-question-circle"></i></a> | <a href="https://github.com/ggirelli/SpectraScope"><i class="fab fa-github"></i></a> | <a href="https://github.com/ggirelli/SpectraScope/issues">Feedback</a></p>
+			<p><small>Powered by: <a href="https://jquery.com/">jQuery</a>, <a href="https://d3js.org/">D3.js</a>, <a href="https://fontawesome.com">Font Awesome</a>, <a href="https://getbootstrap.com/docs/4.3/">Bootstrap v4.3</a>, <a href="https://fonts.google.com/">Google Fonts</a></small></p>
+		</footer>
+	</div>
+</body>
+</html>

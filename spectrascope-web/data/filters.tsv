@@ -1,0 +1,27 @@
+type	name	producer	mid	width	scope	color	nickname	customDescription
+DM	Custom QuadriBand	Chroma	none	none	BiCroScope 1	#FFFFFF	CY5,DAPI,TMR	440/40,570/20,676/29,807/35
+DM	Custom TriBand	Chroma	none	none	BiCroScope 1	#FFFFFF	AF594	535/30,630/27,723/35
+DM	FF506-Di03	Semrock	506	none	BiCroScope 1	auto	AF488	
+DM	FF605-Di02	Semrock	605	none		auto	AF594	
+DM	FF740-Di01	Semrock	740	none	BiCroScope 1	auto	AF700	
+DM	T760	Chroma	760	none		auto	CY7	
+DM	T810	Chroma	810	none	BiCroScope 1	#B100FF	IR800	
+EM	ET740-40	Chroma	740	40	BiCroScope 1	auto	AF700	
+EM	ET810-90	Chroma	810	90		#E000BF	CY7	
+EM	FF01-527-20	Semrock	527	20	BiCroScope 1	auto	AF488	
+EM	FF01-567-15	Semrock	567	15	BiCroScope 1	auto	TMR	
+EM	FF01-628-32	Semrock	628	32	BiCroScope 1	auto	AF594	
+EM	FF01-676-29	Semrock	676	29	BiCroScope 1	auto	CY5	
+EM	FF01-832-37	Semrock	832	37	BiCroScope 1	#B100FF	IR800	
+EM	FF02-447-60	Semrock	447	60	BiCroScope 1	auto	DAPI	
+EX	390-22	Lumencor	390	22	BiCroScope 1	auto	DAPI	
+EX	CYAN-490-20	Chroma	490	20	BiCroScope 2	auto	AF488	
+EX	FF01-494-20	Semrock	494	20	BiCroScope 1	auto	AF488	
+EX	FF01-534-20	Semrock	534	20	BiCroScope 1,BiCroScope 2	auto	AF542,TMR,CY3	
+EX	FF01-586-20	Semrock	586	20	BiCroScope 1,BiCroScope 2	auto	AF594	
+EX	FF01-690-8	Semrock	690	8	BiCroScope 1,BiCroScope 2	auto	AF700	
+EX	LL01-780-12	Semrock	780	12	BiCroScope 1	auto	CY7	
+EX	LL01-780-5	Semrock	780	5	BiCroScope 1,BiCroScope 2	auto	IR800	
+EX	NIR-760-10	Chroma	760	10	BiCroScope 2	auto	IR800	
+EX	Red-631-28	Lumencor	631	28	BiCroScope 1,BiCroScope 2	auto	ATTO647N,CY5	
+EX	UV-360-28	Lumencor	360	28	BiCroScope 2	#C804FF	DAPI	
