@@ -9,7 +9,7 @@ Thus, it may not be fully compatible with other browsers (e.g., Safari, IExplore
 Live demo
 ---
 A live demo of **SpectraScope**, click on the screenshot below to access it.  
-[![demo-screenshot](data/screenshot.png)](https://ggirelli.github.io/SpectraScope/app.html)
+[![demo-screenshot](screenshot.png)](https://ggirelli.github.io/SpectraScope/app.html)
 
 Features
 ---
