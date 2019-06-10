@@ -26,7 +26,7 @@ Installation
 Either download the repository's [zip file](https://github.com/ggirelli/SpectraScope/archive/master.zip) or clone it with `git` using:
 
 ```bash
-git clone http://github.com/ggirelli/spectrascope
+git clone http://github.com/ggirelli/spectrascope/web
 ```
 
 Then, simply open the `app.html` file with your browser!
