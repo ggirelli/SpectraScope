@@ -21,7 +21,7 @@
 			<ul class="nav justify-content-end">
 				<li class="nav-item"><a class="nav-link disabled" href=""><i class="fas fa-home"></i> Home</a></li>
 				<!--<li class="nav-item"><a class="nav-link" href="./index-model.html"><i class="fas fa-wave-square"></i> Model</a></li>-->
-				<li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-cog"></i> Settings</a></li>
+				<li class="nav-item"><a class="nav-link" href="#" data-toggle="modal" data-target="#settingsModal" data-backdrop="static"><i class="fas fa-cog"></i> Settings</a></li>
 			</ul>
 		</header>
 		<article class="col col-10 offset-1"><div class="row">
@@ -179,7 +179,6 @@
 			<div class="col col-12"><div class="container">
 				<textarea class="form-control" name="extended_details" id="extended_details" cols="30" rows="10" disabled></textarea><small>Click on a portion of the spectra to see its extensive details here.</small>
 			</div></div>
-
 		</article>
 		<footer class="mt-5 col col-10 offset-1 text-center">
 			<p>Gabriele Girelli &copy; 2019 | <a class="external" href="https://ggirelli.github.io/SpectraScope/"><i class="fas fa-question-circle"></i></a> | <a class="external" href="https://github.com/ggirelli/SpectraScope"><i class="fab fa-github"></i></a> | <a class="external" href="https://github.com/ggirelli/SpectraScope/issues">Feedback</a></p>
@@ -191,6 +190,59 @@
 				Google Fonts <a class="external" href="https://fonts.google.com/"><i class="fas fa-external-link-square-alt"></i></a>
 			</small></p>
 		</footer>
+	</div>
+
+	<div class="modal fade" id="settingsModal" tabindex="-1" role="dialog" aria-labelledby="settingsModal" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-scrollable modal-xl" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="settingsModalTitle"><i class="fas fa-cog"></i> Settings</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+
+					<ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
+						<li class="nav-item"><a class="nav-link active" id="settings-general-tab" data-toggle="tab" href="#settings-general" role="tab" aria-controls="settings-general" aria-selected="true"><i class="fas fa-user"></i> General</a></li>
+						<li class="nav-item"><a class="nav-link" id="settings-sources-tab" data-toggle="tab" href="#settings-sources" role="tab" aria-controls="settings-sources" aria-selected="true"><i class="far fa-lightbulb"></i> Sources</a></li>
+						<li class="nav-item"><a class="nav-link" id="settings-exf-tab" data-toggle="tab" href="#settings-exf" role="tab" aria-controls="settings-exf" aria-selected="false"><i class="fas fa-sign-in-alt"></i> Excitation Filters</a></li>
+						<li class="nav-item"><a class="nav-link" id="settings-dm-tab" data-toggle="tab" href="#settings-dm" role="tab" aria-controls="settings-dm" aria-selected="false"><i class="fas fa-divide"></i> Dicroic Mirrors</a></li>
+						<li class="nav-item"><a class="nav-link" id="settings-emf-tab" data-toggle="tab" href="#settings-emf" role="tab" aria-controls="settings-emf" aria-selected="false"><i class="fas fa-sign-out-alt"></i>Emission Filters</a></li>
+						<li class="nav-item"><a class="nav-link" id="settings-fluo-tab" data-toggle="tab" href="#settings-fluo" role="tab" aria-controls="settings-fluo" aria-selected="false"><i class="fas fa-tint"></i> Fluorophores</a></li>
+						<li class="nav-item"><a class="nav-link" id="settings-scope-tab" data-toggle="tab" href="#settings-scope" role="tab" aria-controls="settings-scope" aria-selected="false"><i class="fas fa-microscope"></i> Microscopes</a></li>
+					</ul>
+					<div class="tab-content" id="myTabContent">
+						<div class="tab-pane fade show active" id="settings-general" role="tabpanel" aria-labelledby="settings-general-tab">
+							General. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam corrupti aliquam reiciendis corporis fugiat animi repellat, quas obcaecati exercitationem placeat quidem, tenetur eligendi quasi expedita debitis molestias eum dicta, doloribus.
+						</div>
+						<div class="tab-pane fade show active" id="settings-sources" role="tabpanel" aria-labelledby="settings-sources-tab">
+							Sources. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam corrupti aliquam reiciendis corporis fugiat animi repellat, quas obcaecati exercitationem placeat quidem, tenetur eligendi quasi expedita debitis molestias eum dicta, doloribus.
+						</div>
+						<div class="tab-pane fade" id="settings-exf" role="tabpanel" aria-labelledby="settings-exf-tab">
+							EX filter. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci esse alias delectus, minima dicta quae tenetur corrupti, accusamus officiis repellendus autem voluptate inventore culpa amet tempore consequuntur, blanditiis tempora voluptatem.
+						</div>
+						<div class="tab-pane fade" id="settings-dm" role="tabpanel" aria-labelledby="settings-dm-tab">
+							DM. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto ipsum facilis perspiciatis libero impedit odit, tenetur, a consequatur. Ea fugiat temporibus quasi quisquam commodi necessitatibus, perferendis. Id, pariatur vel debitis!
+						</div>
+						<div class="tab-pane fade" id="settings-emf" role="tabpanel" aria-labelledby="settings-emf-tab">
+							EX filter. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non assumenda ipsa iure praesentium, ipsum ea, ex. Nostrum odio sequi excepturi, omnis quo impedit laborum similique aliquam, dolorum qui iste esse?
+						</div>
+						<div class="tab-pane fade" id="settings-fluo" role="tabpanel" aria-labelledby="settings-fluo-tab">
+							Fluorophore. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut iusto qui ex rerum maxime nulla vel aliquam repudiandae pariatur cum alias nisi a laborum sapiente accusamus, excepturi placeat impedit! Aliquam!
+						</div>
+						<div class="tab-pane fade" id="settings-scope" role="tabpanel" aria-labelledby="settings-scope-tab">
+							Microscope. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut iusto qui ex rerum maxime nulla vel aliquam repudiandae pariatur cum alias nisi a laborum sapiente accusamus, excepturi placeat impedit! Aliquam!
+						</div>
+					</div>
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			</div>
+		</div>
 	</div>
 </body>
 </html>
