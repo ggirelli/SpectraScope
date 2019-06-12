@@ -157,8 +157,6 @@ reset_settings_template = function() {
 }
 
 $(function() {
-
-	// Settings template select
 	$("select#settings-template").change(function(e) {
 		eset.set("selected-template", $(this).val())
 		e.preventDefault();
