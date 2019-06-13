@@ -1,5 +1,36 @@
 
-add_source = function() {
+add_source = function(data) {
+	// Add a new light source
+	var selectedTemplate = eset.get("selected-template");
+	var required_keys = ['name', 'peak', 'color', 'path', 'details'];
+
+	var source = {};
+	var keys = [];
+	for (var i = data.length - 1; i >= 0; i--) {
+		var e = data[i];
+		keys.push(e.name);
+		source[e.name] = e.value;
+	}
+
+	for (var i = required_keys.length - 1; i >= 0; i--) {
+		var k = required_keys[i];
+		console.log(k);
+		if ( -1 == keys.indexOf(k) ) {
+			toastr.error("Missing required '" + k + "' data. No source added.");
+			return false;
+		}
+	}
+
+	source.peak = parseFloat(source.peak);
+	source.path = read_spectra(source.path);
+
+	var sourceName = source.name
+	delete source.name;
+	eset.set("templates." + selectedTemplate + ".sources." + sourceName, source);
+}
+
+add_source_dialog = function() {
+	// Show dialog to add a new light source
 	var addSourceForm = $("<form class='needs-validation'>\
 		<div class='mb-2'>\
 			Source name:<input class='form-control' type='text' name='name' required />\
@@ -13,7 +44,7 @@ add_source = function() {
 		</div>\
 		Details:<input class='form-control mb-2' type='text' name='details' />\
 		<div class='mb-2'>\
-			Spectrum file:<input class='form-control' type='text' name='filepath' required />\
+			Spectrum file:<input class='form-control' type='text' name='path' required />\
 			<small class='invalid-feedback'>Something is wrong with the uploaded file. Check the console for more details.</small>\
 		</div>\
 		<input type='submit' class='btn btn-primary float-right mt-2' />\
@@ -70,7 +101,7 @@ add_source = function() {
 			}
 		}
 
-		var spectraElem = $(this).find("input[name='filepath']");
+		var spectraElem = $(this).find("input[name='path']");
 		var spectrapath = spectraElem.val();
 		if ( check_spectra(spectrapath) ) {
 			spectraElem.addClass("is-valid");
@@ -78,9 +109,13 @@ add_source = function() {
 			spectraElem.addClass("is-invalid");
 		}
 
-		//$(this).addClass("was-validated");
+		if ( 0 == $(this).find(".is-invalid").length ) {
+			$(this).addClass("was-validated");
 
-		//bootbox.hideAll();
+			add_source($(this).serializeArray());
+
+			bootbox.hideAll();
+		}
 	});
 
 	addSourceForm.find("input[type='button']").click(function(e) {
@@ -90,7 +125,7 @@ add_source = function() {
 		e.preventDefault();
 	});
 
-	addSourceForm.find("input[name='filepath']").focus(function(e) {
+	addSourceForm.find("input[name='path']").focus(function(e) {
 		// Trigger open file dialog
 		$(this).blur();
 		var filepath = dialog.showOpenDialog(null, {
@@ -115,5 +150,5 @@ add_source = function() {
 }
 
 $(function() {
-	$("#settings-add-source-btn").click(function(e) { add_source(); });
+	$("#settings-add-source-btn").click(function(e) { add_source_dialog(); });
 });
