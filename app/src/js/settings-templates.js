@@ -128,8 +128,6 @@ upload_settings_template = function() {
 			toastr.error("Template '" + templateName + "' already exist. Import failed.");
 		} else {
 			data = JSON.parse(data)
-
-
 			eset.set("templates." + templateName, data);
 			load_template_list();
 			toastr.success("Template '" + templateName + "' imported.");
