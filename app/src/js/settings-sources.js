@@ -237,7 +237,15 @@ rm_source = function(sourceName) {
 
 dl_source_spectra = function(sourceName) {
 	// Download light source spectra
-	console.log(sourceName);
+	var selectedTemplate = eset.get("selected-template");
+
+	if ( -1 == Object.keys(eset.get("templates." + selectedTemplate + ".sources")).indexOf(sourceName) ) {
+		toastr.danger("Light source '" + sourceName + "' not found.");
+		return;
+	}
+
+	write_spectra(eset.get("templates." + selectedTemplate + ".sources." + sourceName + ".spectra"),
+		sourceName + ".tsv");
 }
 
 $(function() {
