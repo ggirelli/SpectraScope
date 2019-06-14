@@ -64,7 +64,7 @@ load_microscope_components = function() {
 				var scopeList =  source.microscopes;
 				if ( -1 == scopeList.indexOf(selectedScope) ) {
 					scopeList.push(selectedScope);
-					eset.set(sourcePath + ".microscopes", scopeList);
+					eset.set(sourcePath + ".microscopes", scopeList.sort());
 				}
 
 				sourceAddedWrap
@@ -84,7 +84,7 @@ load_microscope_components = function() {
 				var scopeList =  source.microscopes;
 				if ( -1 != scopeList.indexOf(selectedScope) ) {
 					eset.set(sourcePath + ".microscopes",
-						$.grep(scopeList, (value) => { return value != selectedScope }));
+						$.grep(scopeList, (value) => { return value != selectedScope }).sort());
 				}
 
 				sourceAvailWrap
