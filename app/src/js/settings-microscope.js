@@ -35,10 +35,73 @@ add_microscope = function() {
 
 load_microscope_components = function() {
 	// Load components that are or can be associated with the selected microscope.
-	console.log(1);
+	var selectedTemplate = eset.get("selected-template");
+	var selectedScope = $("#settings-microscopes").val();
 
 	// Light sources
-	
+	var sourceAvailWrap = $("#settings-microscopes-source-available");
+	var sourceAddedWrap = $("#settings-microscopes-source-added");
+	sourceAvailWrap.children().remove();
+	sourceAddedWrap.children().remove();
+	for (var i = Object.keys(eset.get("templates." + selectedTemplate + ".sources")).length - 1; i >= 0; i--) {
+		var sourceName = Object.keys(eset.get("templates." + selectedTemplate + ".sources"))[i];
+		var scopeList = eset.get("templates." + selectedTemplate + ".sources." + sourceName + ".microscopes");
+
+		var sourceElem = $("<option></option>")
+			.text(sourceName)
+			.attr("name", sourceName)
+			.val(sourceName);
+
+		var sourceAvailElem = sourceElem.clone()
+			.click(function(e) {
+				e.preventDefault();
+				$(this).css({"display" : "none"});
+
+				var selectedTemplate = eset.get("selected-template");
+				var selectedScope = $("#settings-microscopes").val();
+				var sourcePath = "templates." + selectedTemplate + ".sources." + $(this).val();
+				var source = eset.get(sourcePath);
+				var scopeList =  source.microscopes;
+				if ( -1 == scopeList.indexOf(selectedScope) ) {
+					scopeList.push(selectedScope);
+					eset.set(sourcePath + ".microscopes", scopeList);
+				}
+
+				sourceAddedWrap
+					.find("option[name="+$(this).attr("name")+"]")
+					.removeAttr("style")
+					.blur().prop("selected", false);
+			});
+		var sourceAddedElem = sourceElem.clone()
+			.click(function(e) {
+				e.preventDefault();
+				$(this).css({"display" : "none"});
+
+				var selectedTemplate = eset.get("selected-template");
+				var selectedScope = $("#settings-microscopes").val();
+				var sourcePath = "templates." + selectedTemplate + ".sources." + $(this).val();
+				var source = eset.get(sourcePath);
+				var scopeList =  source.microscopes;
+				if ( -1 != scopeList.indexOf(selectedScope) ) {
+					eset.set(sourcePath + ".microscopes",
+						$.grep(scopeList, (value) => { return value != selectedScope }));
+				}
+
+				sourceAvailWrap
+					.find("option[name="+$(this).attr("name")+"]")
+					.removeAttr("style")
+					.blur().prop("selected", false);
+			});
+
+		if ( -1 == scopeList.indexOf(selectedScope) ) {
+			sourceAvailWrap.append(sourceAvailElem);
+			sourceAddedWrap.append(sourceAddedElem.css({"display" : "none"}));
+		} else {
+			sourceAvailWrap.append(sourceAvailElem.css({"display" : "none"}));
+			sourceAddedWrap.append(sourceAddedElem);
+		}
+	}
+
 	// Optical components
 }
 
