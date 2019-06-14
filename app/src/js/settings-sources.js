@@ -1,4 +1,61 @@
 
+load_source_list = function() {
+	// Load list of light sources and their data to the settings table
+	var sourceTab = $("table#settings-source > tbody")
+	sourceTab.children().remove();
+
+	var selectedTemplate = eset.get("selected-template");
+	var sources = eset.get("templates." + selectedTemplate + ".sources");
+
+	if ( 0 == Object.keys(sources).length ) {
+		sourceTab.append($("<tr><td class='text-center' colspan='6'><i>No sources found.</i></td></tr>"))
+	} else {
+		for (var i = Object.keys(sources).length - 1; i >= 0; i--) {
+			var sourceName = Object.keys(sources)[i]
+			
+			var sourceRow = $("<tr></tr>");
+			sourceRow.append($("<th scope='row'>" + sourceName + "</th>"));
+			sourceRow.append($("<td>" + sources[sourceName].peak + "</td>"));
+			sourceRow.append($("<td>" + sources[sourceName].microscopes.join(", ") + "</td>"));
+			sourceRow.append($("<td>" + sources[sourceName].color + "</td>"));
+			sourceRow.append($("<td>" + sources[sourceName].details + "</td>"));
+
+			var sourceOpts = $("<td></td>");
+			sourceOpts.append(
+				$("<a href='#'></a>")
+					.addClass("btn btn-danger btn-sm mr-2")
+					.html("<i class='fas fa-minus' ></i>")
+					.attr('data-name', sourceName)
+					.click(function(e) {
+						e.preventDefault();
+						rm_source($(this).attr("data-name"));
+					})
+					.attr('data-toggle', 'tooltip')
+					.attr('data-placement', 'top')
+					.attr('title', 'Remove source')
+					.tooltip()
+				);
+			sourceOpts.append(
+				$("<a href='#'></a>")
+					.addClass("btn btn-info btn-sm mr-2")
+					.html("<i class='fas fa-file-export' ></i>")
+					.attr('data-name', sourceName)
+					.click(function(e) {
+						e.preventDefault();
+						dl_source_spectra($(this).attr("data-name"));
+					})
+					.attr('data-toggle', 'tooltip')
+					.attr('data-placement', 'top')
+					.attr('title', 'Download spectra')
+					.tooltip()
+				);
+			sourceRow.append(sourceOpts);
+
+			sourceTab.append(sourceRow);
+		}
+	}
+}
+
 add_source = function(data) {
 	// Add a new light source
 	var selectedTemplate = eset.get("selected-template");
@@ -23,10 +80,14 @@ add_source = function(data) {
 
 	source.peak = parseFloat(source.peak);
 	source.path = read_spectra(source.path);
+	source.microscopes = [];
 
 	var sourceName = source.name
 	delete source.name;
 	eset.set("templates." + selectedTemplate + ".sources." + sourceName, source);
+
+	toastr.success("Source '" + source.name + "' added.");
+	load_source_list();
 }
 
 add_source_dialog = function() {
@@ -149,6 +210,37 @@ add_source_dialog = function() {
 	});
 }
 
+rm_source = function(sourceName) {
+	// Remove a light source. Requires confirmation.
+	var selectedTemplate = eset.get("selected-template");
+
+	if ( -1 == Object.keys(eset.get("templates." + selectedTemplate + ".sources")).indexOf(sourceName) ) {
+		toastr.danger("Light source '" + sourceName + "' not found.");
+		return;
+	}
+
+	var msg = "Are you sure you want to cancel the '" + sourceName + "' light source?<br/>";
+	msg = msg + "<small class='text-danger'>This cannot be undone!</small>";
+	bootbox.confirm({
+		message: msg,
+		callback: function(result){
+			if ( result ) {
+			    eset.delete("templates." + selectedTemplate + ".sources." + sourceName);
+			    toastr.success("The light source '" + sourceName + "' has been removed.");
+			    load_source_list();
+			} else {
+				toastr.info("Nothing done.");
+			}
+		}
+	});
+}
+
+dl_source_spectra = function(sourceName) {
+	// Download light source spectra
+	console.log(sourceName);
+}
+
 $(function() {
+	$("#settings-sources-tab").click(function(e) { load_source_list(); });
 	$("#settings-add-source-btn").click(function(e) { add_source_dialog(); });
 });

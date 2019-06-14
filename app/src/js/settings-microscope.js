@@ -33,7 +33,20 @@ add_microscope = function() {
 	});
 }
 
+load_microscope_components = function() {
+	// Load components that are or can be associated with the selected microscope.
+	console.log(1);
+
+	// Light sources
+	
+	// Optical components
+}
+
 $(function() {
-	$("#settings-scope-tab").click(function(e) { load_microscope_list(); });
+	$("#settings-scope-tab").click(function(e) {
+		load_microscope_list();
+		load_microscope_components();
+	});
+	$("#settings-microscopes").change(function(e) { load_microscope_components(); });
 	$("#settings-add-microscope-btn").click(function(e) { add_microscope(); });
 });
