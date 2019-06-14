@@ -1,0 +1,185 @@
+<script src="./js/settings.fn.js"></script>
+<script src="./js/settings-templates.js"></script>
+<script src="./js/settings-microscope.js"></script>
+<script src="./js/settings-sources.js"></script>
+<script src="./js/settings-optelem.js"></script>
+
+<div class="modal fade" id="settingsModal" tabindex="-1" role="dialog" aria-labelledby="settingsModal" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-scrollable modal-xl" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="settingsModalTitle"><i class="fas fa-cog"></i> Settings</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+
+				<ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
+					<li class="nav-item"><a class="nav-link active" id="settings-general-tab" data-toggle="tab" href="#settings-general" role="tab" aria-controls="settings-general" aria-selected="true"><i class="fas fa-user"></i> General</a></li>
+					<li class="nav-item"><a class="nav-link" id="settings-scope-tab" data-toggle="tab" href="#settings-scope" role="tab" aria-controls="settings-scope" aria-selected="false"><i class="fas fa-microscope"></i> Microscopes</a></li>
+					<li class="nav-item"><a class="nav-link" id="settings-sources-tab" data-toggle="tab" href="#settings-sources" role="tab" aria-controls="settings-sources" aria-selected="true"><i class="far fa-lightbulb"></i> Sources</a></li>
+					<li class="nav-item"><a class="nav-link" id="settings-optelem-tab" data-toggle="tab" href="#settings-optelem" role="tab" aria-controls="settings-optelem" aria-selected="false"><i class="fas fa-eye"></i> Optical elements</a></li>
+					<li class="nav-item"><a class="nav-link" id="settings-fluo-tab" data-toggle="tab" href="#settings-fluo" role="tab" aria-controls="settings-fluo" aria-selected="false"><i class="fas fa-tint"></i> Fluorophores</a></li>
+				</ul>
+				<div class="tab-content" id="myTabContent">
+					<div class="tab-pane fade show active" id="settings-general" role="tabpanel" aria-labelledby="settings-general-tab">
+						<h5>
+							Settings template
+							<button id="settings-reset-template-btn" class="btn btn-warning btn-sm float-right mr-1 mb-1" data-toggle="tooltip" data-placement="bottom" title="Reset all settings"><i class="fas fa-history"></i></button>
+							<button id="settings-ul-template-btn" class="btn btn-primary btn-sm float-right mr-1 mb-1" data-toggle="tooltip" data-placement="bottom" title="Upload a template"><i class="fas fa-upload"></i></button>
+							<button id="settings-dl-template-btn" class="btn btn-primary btn-sm float-right mr-1 mb-1" data-toggle="tooltip" data-placement="bottom" title="Download current template"><i class="fas fa-download"></i></button>
+							<button id="settings-cp-template-btn" class="btn btn-info btn-sm float-right mr-1 mb-1" data-toggle="tooltip" data-placement="bottom" title="Copy current template"><i class="far fa-copy"></i></button>
+							<button id="settings-rm-template-btn" class="btn btn-danger btn-sm float-right mr-1 mb-1" data-toggle="tooltip" data-placement="bottom" title="Remove current template"><i class="fas fa-minus"></i></button>
+							<button id="settings-add-template-btn" class="btn btn-success btn-sm float-right mr-1 mb-1" data-toggle="tooltip" data-placement="bottom" title="Add empty template"><i class="fas fa-plus"></i></button>
+						</h5>
+						<select class="form-control mt-1 mb-1" name="settings-template" id="settings-template"></select>
+						<small>Select a settings template to load it.</small>
+					</div>
+					<div class="tab-pane fade" id="settings-scope" role="tabpanel" aria-labelledby="settings-scope-tab">
+						<h5>
+							Microscope components
+							<button id="settings-rm-microscope-btn" class="btn btn-danger btn-sm float-right mr-1 mb-1" data-toggle="tooltip" data-placement="bottom" title="Remove current microscope"><i class="fas fa-minus"></i></button>
+							<button id="settings-add-microscope-btn" class="btn btn-success btn-sm float-right mr-1 mb-1" data-toggle="tooltip" data-placement="bottom" title="Add empty microscope"><i class="fas fa-plus"></i></button>
+						</h5>
+						<select class="form-control mt-1 mb-1" name="settings-microscopes" id="settings-microscopes"></select>
+						<small>Select a microscope template to load and edit its components below.</small>
+
+						<h5 class="mt-3"><i class="far fa-lightbulb"></i> Sources</h5>
+						<div class="row mb-3">
+							<div class="col col-6">
+								<div class="card">
+									<div class="card-header">Available</div>
+									<div class="card-body">
+										<select multiple class="form-control" name="settings-microscopes-source-available" id="settings-microscopes-source-available">
+											<!--  -->
+										</select>
+										<small>Click on an item to add it to the microscope.</small>
+									</div>
+								</div>
+							</div>
+							<div class="col col-6">
+								<div class="card">
+									<div class="card-header">Added</div>
+									<div class="card-body">
+										<select multiple class="form-control" name="settings-microscopes-source-added" id="settings-microscopes-source-added">
+											<!--  -->
+										</select>
+										<small>Click on an item to remove it from the microscope.</small>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<h5 class="mt-3"><i class="far fa-eye"></i> Optical elements</h5>
+						<div class="row mb-3">
+							<div class="col col-6">
+								<div class="card">
+									<div class="card-header">Available</div>
+									<div class="card-body">
+										<select multiple class="form-control" name="settings-microscopes-optelem-available" id="settings-microscopes-optelem-available">
+											<!--  -->
+										</select>
+										<small>Click on an item to add it to the microscope.</small>
+									</div>
+								</div>
+							</div>
+							<div class="col col-6">
+								<div class="card">
+									<div class="card-header">Added</div>
+									<div class="card-body">
+										<select multiple class="form-control" name="settings-microscopes-optelem-added" id="settings-microscopes-optelem-added">
+											<!--  -->
+										</select>
+										<small>Click on an item to remove it from the microscope.</small>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="tab-pane fade show" id="settings-sources" role="tabpanel" aria-labelledby="settings-sources-tab">
+						<h5>
+							Light sources
+							<button id="settings-add-source-btn" class="btn btn-success btn-sm float-right mr-1 mb-1" data-toggle="tooltip" data-placement="bottom" title="Add a new light source"><i class="fas fa-plus"></i></button>
+						</h5>
+						<table id="settings-source" class="table table-striped">
+							<thead class="thead-dark">
+								<tr>
+									<th scope="col">Name</th>
+									<th scope="col">Peak</th>
+									<th scope="col">Scopes</th>
+									<th scope="col">Color</th>
+									<th scope="col">Details</th>
+									<th scope="col">Options</th>
+								</tr>
+							</thead>
+							<tbody></tbody>
+						</table>
+					</div>
+					<div class="tab-pane fade" id="settings-optelem" role="tabpanel" aria-labelledby="settings-optelem-tab">
+						<h5>
+							Optical elements
+							<button id="settings-add-optelem-btn" class="btn btn-success btn-sm float-right mr-1 mb-1" data-toggle="tooltip" data-placement="bottom" title="Add a new optical element"><i class="fas fa-plus"></i></button>
+						</h5>
+
+						<h6>Excitation filters</h6>
+						<table id="settings-exf" class="table table-striped">
+							<thead class="thead-dark">
+								<tr>
+									<th scope="col">Name</th>
+									<th scope="col">Peak</th>
+									<th scope="col">Scopes</th>
+									<th scope="col">Color</th>
+									<th scope="col">Details</th>
+									<th scope="col">Options</th>
+								</tr>
+							</thead>
+							<tbody></tbody>
+						</table>
+
+						<h6>Dicroic Mirrors</h6>
+						<table id="settings-dm" class="table table-striped">
+							<thead class="thead-dark">
+								<tr>
+									<th scope="col">Name</th>
+									<th scope="col">Peak</th>
+									<th scope="col">Scopes</th>
+									<th scope="col">Color</th>
+									<th scope="col">Details</th>
+									<th scope="col">Options</th>
+								</tr>
+							</thead>
+							<tbody></tbody>
+						</table>
+
+						<h6>Emission filters</h6>
+						<table id="settings-emf" class="table table-striped">
+							<thead class="thead-dark">
+								<tr>
+									<th scope="col">Name</th>
+									<th scope="col">Peak</th>
+									<th scope="col">Scopes</th>
+									<th scope="col">Color</th>
+									<th scope="col">Details</th>
+									<th scope="col">Options</th>
+								</tr>
+							</thead>
+							<tbody></tbody>
+						</table>
+
+					</div>
+					<div class="tab-pane fade" id="settings-fluo" role="tabpanel" aria-labelledby="settings-fluo-tab">
+						<h5>
+							Fluorophores
+							<button id="settings-add-fluor-btn" class="btn btn-success btn-sm float-right mr-1 mb-1" data-toggle="tooltip" data-placement="bottom" title="Add a new fluorophore"><i class="fas fa-plus"></i></button>
+						</h5>
+					</div>
+				</div>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>

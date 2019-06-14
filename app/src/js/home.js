@@ -438,6 +438,9 @@ async function bootSpectraScope() {
 
 
 $(document).ready(function() {
+    $("#settings-modal-receiver").load("./includes/settings-modal.html");
+    $("footer").load("./includes/footer.html");
+
     bootSpectraScope();
     $("#expand-all").click(function(e) {
       $('.accordion .collapse').removeClass('collapse').addClass('ex-collapse');
