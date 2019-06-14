@@ -101,3 +101,22 @@ read_spectra = function(spath) {
 
 	return data2;
 }
+
+write_spectra = function(data, fname) {
+	// Write spectra from settings to file
+	var filename = dialog.showSaveDialog(null, {
+		title: "Export spectra",
+		defaultPath: fname
+	});
+
+	var content = "w\tri\n";
+	for (var i = 0; i < data.w.length; i++)
+		content = content + data.w[i] + "\t" + data.ri[i] + "\n";
+
+	try {
+		fs.writeFileSync(filename, content, 'utf-8');
+		toastr.success("Spectra exported to '" + filename + "'");
+	} catch(e) {
+		toastr.danger('Failed to export the spectra to "', filename, '"!');
+	}
+}
