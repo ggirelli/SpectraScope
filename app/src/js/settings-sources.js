@@ -71,7 +71,6 @@ add_source = function(data) {
 
 	for (var i = required_keys.length - 1; i >= 0; i--) {
 		var k = required_keys[i];
-		console.log(k);
 		if ( -1 == keys.indexOf(k) ) {
 			toastr.error("Missing required '" + k + "' data. No source added.");
 			return false;
@@ -79,7 +78,8 @@ add_source = function(data) {
 	}
 
 	source.peak = parseFloat(source.peak);
-	source.path = read_spectra(source.path);
+	source.path = source.path;
+	source.spectra = read_spectra(source.path);
 	source.microscopes = [];
 
 	var sourceName = source.name

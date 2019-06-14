@@ -42,7 +42,62 @@ check_spectra = function(path) {
 	return true;
 }
 
-read_spectra = function(path) {
+read_spectra = function(spath) {
 	// Read and parse (re-sample) a spectra file
-	return path;
+	var data0 = fs.readFileSync(spath, 'utf-8').split("\n");
+	var header0 = data0[0].split("\t");
+
+	var data = {w : [], ri : []},
+		wID = header0.indexOf("w"),
+		riID = header0.indexOf("ri");
+	for (var i = 1; i < data0.length; i++) {
+		if ( "" == data0[i] ) continue;
+		var cols = data0[i].split("\t");
+		data.w.push(parseFloat(cols[wID]));
+		data.ri.push(parseFloat(cols[riID]));
+	}
+
+	var data2 = {w : [], ri : []};
+	for (var i = 250; i <= 900; i++) {
+		data2.w.push(i);
+
+		if ( i < Math.min.apply(null, data.w) ) {
+			data2.ri.push(0);
+			continue;
+		}
+		if ( i > Math.max.apply(null, data.w) ) {
+			data2.ri.push(0);
+			continue;
+		}
+
+		var new_ri = 0,
+			w_index = data.w.indexOf(i);
+		if ( -1 != w_index ) {
+			new_ri = data.ri[w_index];
+		} else {
+			var min_low = data.w.map((v) => {
+					if ( 0 < v - i ) {
+						return Math.abs(v - i);
+					} else {
+						return Number.POSITIVE_INFINITY;
+					}
+				}),
+				min_hig = data.w.map((v) => {
+					if ( 0 > v - i ) {
+						return Math.abs(v - i);
+					} else {
+						return Number.POSITIVE_INFINITY;
+					}
+				});
+			var id_low = min_low.indexOf(Math.min.apply(null, min_low)),
+				id_hig = min_hig.indexOf(Math.min.apply(null, min_hig))
+			var w1 = data.w[id_low], w2 = data.w[id_hig],
+				ri1 = data.ri[id_low], ri2 = data.ri[id_hig];
+			new_ri = ri1 + (ri2-ri1)/(w2-w1)*(i-w1);
+
+		}
+		data2.ri.push(new_ri);
+	}
+
+	return data2;
 }
