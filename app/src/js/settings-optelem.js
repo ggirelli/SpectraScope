@@ -1,3 +1,4 @@
+
 load_optical_element_list = function() {
 	// Load list of optical elements and their data to the settings table
 	$("table.optElem-settings-list > tbody").children().remove();
@@ -98,7 +99,6 @@ add_optical_element = function(data) {
 		optElem.mid = parseFloat(optElem.mid);
 		optElem.width = parseFloat(optElem.width);
 	}
-	optElem.path = optElem.path;
 	optElem.spectra = read_spectra(optElem.path);
 	optElem.microscopes = [];
 

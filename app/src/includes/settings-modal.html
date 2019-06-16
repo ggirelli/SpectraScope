@@ -3,6 +3,7 @@
 <script src="./js/settings-microscope.js"></script>
 <script src="./js/settings-sources.js"></script>
 <script src="./js/settings-optelem.js"></script>
+<script src="./js/settings-fluorophores.js"></script>
 
 <div class="modal fade" id="settingsModal" tabindex="-1" role="dialog" aria-labelledby="settingsModal" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-scrollable modal-xl" role="document">
@@ -174,8 +175,20 @@
 					<div class="tab-pane fade" id="settings-fluo" role="tabpanel" aria-labelledby="settings-fluo-tab">
 						<h5>
 							Fluorophores
-							<button id="settings-add-fluor-btn" class="btn btn-success btn-sm float-right mr-1 mb-1" data-toggle="tooltip" data-placement="bottom" title="Add a new fluorophore"><i class="fas fa-plus"></i></button>
+							<button id="settings-add-fluo-btn" class="btn btn-success btn-sm float-right mr-1 mb-1" data-toggle="tooltip" data-placement="bottom" title="Add a new fluorophore"><i class="fas fa-plus"></i></button>
 						</h5>
+						<table id="settings-fluorophore" class="table table-striped">
+							<thead class="thead-dark">
+								<tr>
+									<th scope="col">Name</th>
+									<th scope="col">Excitation</th>
+									<th scope="col">Emission</th>
+									<th scope="col">Color</th>
+									<th scope="col">Options</th>
+								</tr>
+							</thead>
+							<tbody></tbody>
+						</table>
 					</div>
 				</div>
 

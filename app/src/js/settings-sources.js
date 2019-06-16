@@ -78,7 +78,6 @@ add_source = function(data) {
 	}
 
 	source.peak = parseFloat(source.peak);
-	source.path = source.path;
 	source.spectra = read_spectra(source.path);
 	source.microscopes = [];
 

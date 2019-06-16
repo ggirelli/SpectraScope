@@ -117,6 +117,6 @@ write_spectra = function(data, fname) {
 		fs.writeFileSync(filename, content, 'utf-8');
 		toastr.success("Spectra exported to '" + filename + "'");
 	} catch(e) {
-		toastr.danger('Failed to export the spectra to "', filename, '"!');
+		toastr.error('Failed to export the spectra to "', filename, '"!');
 	}
 }
