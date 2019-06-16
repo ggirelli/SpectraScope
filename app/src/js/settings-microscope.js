@@ -108,7 +108,7 @@ load_microscope_components = function() {
 				}
 
 				sourceAddedWrap
-					.find("option[name="+$(this).attr("name")+"]")
+					.find("option[name='"+$(this).attr("name")+"']")
 					.removeAttr("style")
 					.blur().prop("selected", false);
 			});
@@ -128,7 +128,7 @@ load_microscope_components = function() {
 				}
 
 				sourceAvailWrap
-					.find("option[name="+$(this).attr("name")+"]")
+					.find("option[name='"+$(this).attr("name")+"']")
 					.removeAttr("style")
 					.blur().prop("selected", false);
 			});
@@ -143,6 +143,68 @@ load_microscope_components = function() {
 	}
 
 	// Optical components
+		var oeAvailWrap = $("#settings-microscopes-optelem-available");
+	var oeAddedWrap = $("#settings-microscopes-optelem-added");
+	oeAvailWrap.children().remove();
+	oeAddedWrap.children().remove();
+	for (var i = Object.keys(eset.get("templates." + selectedTemplate + ".optical_elements")).length - 1; i >= 0; i--) {
+		var oeName = Object.keys(eset.get("templates." + selectedTemplate + ".optical_elements"))[i];
+		var scopeList = eset.get("templates." + selectedTemplate + ".optical_elements." + oeName + ".microscopes");
+
+		var oeElem = $("<option></option>")
+			.text(oeName)
+			.attr("name", oeName)
+			.val(oeName);
+
+		var oeAvailElem = oeElem.clone()
+			.click(function(e) {
+				e.preventDefault();
+				$(this).css({"display" : "none"});
+
+				var selectedTemplate = eset.get("selected-template");
+				var selectedScope = $("#settings-microscopes").val();
+				var oePath = "templates." + selectedTemplate + ".optical_elements." + $(this).val();
+				var oe = eset.get(oePath);
+				var scopeList =  oe.microscopes;
+				if ( -1 == scopeList.indexOf(selectedScope) ) {
+					scopeList.push(selectedScope);
+					eset.set(oePath + ".microscopes", scopeList.sort());
+				}
+
+				oeAddedWrap
+					.find("option[name='"+$(this).attr("name")+"']")
+					.removeAttr("style")
+					.blur().prop("selected", false);
+			});
+		var oeAddedElem = oeElem.clone()
+			.click(function(e) {
+				e.preventDefault();
+				$(this).css({"display" : "none"});
+
+				var selectedTemplate = eset.get("selected-template");
+				var selectedScope = $("#settings-microscopes").val();
+				var oePath = "templates." + selectedTemplate + ".optical_elements." + $(this).val();
+				var oe = eset.get(oePath);
+				var scopeList =  oe.microscopes;
+				if ( -1 != scopeList.indexOf(selectedScope) ) {
+					eset.set(oePath + ".microscopes",
+						$.grep(scopeList, (value) => { return value != selectedScope }).sort());
+				}
+
+				oeAvailWrap
+					.find("option[name='"+$(this).attr("name")+"']")
+					.removeAttr("style")
+					.blur().prop("selected", false);
+			});
+
+		if ( -1 == scopeList.indexOf(selectedScope) ) {
+			oeAvailWrap.append(oeAvailElem);
+			oeAddedWrap.append(oeAddedElem.css({"display" : "none"}));
+		} else {
+			oeAvailWrap.append(oeAvailElem.css({"display" : "none"}));
+			oeAddedWrap.append(oeAddedElem);
+		}
+	}
 }
 
 $(function() {
