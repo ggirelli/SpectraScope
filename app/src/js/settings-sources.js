@@ -215,7 +215,7 @@ rm_source = function(sourceName) {
 	var selectedTemplate = eset.get("selected-template");
 
 	if ( -1 == Object.keys(eset.get("templates." + selectedTemplate + ".sources")).indexOf(sourceName) ) {
-		toastr.danger("Light source '" + sourceName + "' not found.");
+		toastr.error("Light source '" + sourceName + "' not found.");
 		return;
 	}
 
@@ -240,7 +240,7 @@ dl_source_spectra = function(sourceName) {
 	var selectedTemplate = eset.get("selected-template");
 
 	if ( -1 == Object.keys(eset.get("templates." + selectedTemplate + ".sources")).indexOf(sourceName) ) {
-		toastr.danger("Light source '" + sourceName + "' not found.");
+		toastr.error("Light source '" + sourceName + "' not found.");
 		return;
 	}
 

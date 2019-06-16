@@ -1,21 +1,15 @@
 
 var empty_settings = {
 	sources : {},
-	filters: {
-		em : {},
-		ex : {}
+	optical_elements: {
 	},
-	mirrors : {},
 	fluorophores : {},
 	microscopes : []
 };
 var default_settings = {
 	sources : {},
-	filters: {
-		em : {},
-		ex : {}
+	optical_elements: {
 	},
-	mirrors : {},
 	fluorophores : {},
 	microscopes : ["BiCroScope 1", "BiCroScope 2"]
 };
