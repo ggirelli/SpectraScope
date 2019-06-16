@@ -44,7 +44,7 @@ check_spectra = function(path) {
 
 read_spectra = function(spath) {
 	// Read and parse (re-sample) a spectra file
-	var data0 = fs.readFileSync(spath, 'utf-8').split("\n");
+	var data0 = fs.readFileSync(spath, 'utf-8').replace("\r", "").split("\n");
 	var header0 = data0[0].split("\t");
 
 	var data = {w : [], ri : []},
@@ -57,8 +57,8 @@ read_spectra = function(spath) {
 		data.ri.push(parseFloat(cols[riID]));
 	}
 
-	var data2 = {w : [], ri : []};
-	for (var i = 250; i <= 900; i++) {
+	var data2 = {w : [250], ri : [0]};
+	for (var i = 251; i < 900; i++) {
 		data2.w.push(i);
 
 		if ( i < Math.min.apply(null, data.w) ) {
@@ -98,6 +98,8 @@ read_spectra = function(spath) {
 		}
 		data2.ri.push(new_ri);
 	}
+	data2.w.push(900)
+	data2.ri.push(0)
 
 	return data2;
 }
