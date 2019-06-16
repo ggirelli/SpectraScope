@@ -14,8 +14,8 @@ load_optical_element_list = function() {
 		
 		var optElemRow = $("<tr></tr>");
 		optElemRow.append($("<th scope='row'>" + optElemName + "</th>"));
+		optElemRow.append($("<td>" + opticalElements[optElemName].mid + "</td>"));
 		if ( "dm" != opticalElements[optElemName].type ) {
-			optElemRow.append($("<td>" + opticalElements[optElemName].mid + "</td>"));
 			optElemRow.append($("<td>" + opticalElements[optElemName].width + "</td>"));
 		}
 		optElemRow.append($("<td>" + opticalElements[optElemName].microscopes.join(", ") + "</td>"));
@@ -58,7 +58,7 @@ load_optical_element_list = function() {
 	}
 
 	base_types = ["em", "ex", "dm"]
-	type_meta = {em:8, dm:6, ex:8}
+	type_meta = {em:8, dm:7, ex:8}
 	for (var i = base_types.length - 1; i >= 0; i--) {
 		if ( -1 == typeList.indexOf(base_types[i]) ) {
 			$("table.optElem-settings-list#settings-" + base_types[i])
@@ -70,7 +70,7 @@ load_optical_element_list = function() {
 add_optical_element = function(data) {
 	// Add a new optical element
 	var selectedTemplate = eset.get("selected-template");
-	var required_keys = ['name', 'type', 'color', 'details', 'description', 'path'];
+	var required_keys = ['name', 'type', 'mid', 'color', 'details', 'description', 'path'];
 
 	var optElem = {};
 	var keys = [];
@@ -81,10 +81,7 @@ add_optical_element = function(data) {
 	}
 
 	if ( -1 != keys.indexOf("type") ) {
-		if ( "dm" != optElem.type ) {
-			required_keys.push("mid");
-			required_keys.push("width");
-		}
+		if ( "dm" != optElem.type ) required_keys.push("width");
 	}
 
 	for (var i = required_keys.length - 1; i >= 0; i--) {
@@ -95,10 +92,8 @@ add_optical_element = function(data) {
 		}
 	}
 
-	if ( "dm" != optElem.type ) {
-		optElem.mid = parseFloat(optElem.mid);
-		optElem.width = parseFloat(optElem.width);
-	}
+	optElem.mid = parseFloat(optElem.mid);
+	if ( "dm" != optElem.type ) optElem.width = parseFloat(optElem.width);
 	optElem.spectra = read_spectra(optElem.path);
 	optElem.microscopes = [];
 
@@ -124,7 +119,7 @@ add_optical_element_dialog = function() {
 				<option value='em'>Emission filter</option>\
 			</select>\
 		</div>\
-		Element midpoint (nm):<input class='form-control mb-2' type='number' min=250 max=900 name='mid' placeholder='Wavelength at transmission window midpoint' required />\
+		Element midpoint (nm):<input class='form-control mb-2' type='number' min=250 max=900 name='mid' placeholder='Wavelength at transmission window midpoint/beginning' required />\
 		Element width (nm):<input class='form-control mb-2' type='number' min=1 max=1000 name='width' placeholder='Transmission window width' required />\
 		<div class='mb-2'>\
 			Color:<input class='form-control' type='text' name='color' value='auto' required />\
@@ -164,21 +159,21 @@ add_optical_element_dialog = function() {
 			}
 		}
 
-		if ( "dm" != $(this).find("select").val() ) {
-			var midpoint = $(this).find("input[name='mid']");
-			var newPeak = midpoint.val();
-			var re = /[0-9]+/g;
-			if ( re.test(newPeak) ) {
-				newPeak = parseInt(newPeak);
-				if ( newPeak >= 250 & newPeak <= 900 ) {
-					midpoint.addClass("is-valid");
-				} else {
-					midpoint.addClass("is-invalid");
-				}
+		var midpoint = $(this).find("input[name='mid']");
+		var newPeak = midpoint.val();
+		var re = /[0-9]+/g;
+		if ( re.test(newPeak) ) {
+			newPeak = parseInt(newPeak);
+			if ( newPeak >= 250 & newPeak <= 900 ) {
+				midpoint.addClass("is-valid");
 			} else {
 				midpoint.addClass("is-invalid");
 			}
+		} else {
+			midpoint.addClass("is-invalid");
+		}
 
+		if ( "dm" != $(this).find("select").val() ) {
 			var winWidth = $(this).find("input[name='width']");
 			var newPeak = winWidth.val();
 			var re = /[0-9]+/g;
@@ -229,10 +224,8 @@ add_optical_element_dialog = function() {
 
 	addOptElemForm.find("select").change(function(e) {
 		if ( "dm" == $(this).val() ) {
-			$(this).parent().parent().find('input[name="mid"]').attr("disabled", true);
 			$(this).parent().parent().find('input[name="width"]').attr("disabled", true);
 		} else {
-			$(this).parent().parent().find('input[name="mid"]').attr("disabled", false);
 			$(this).parent().parent().find('input[name="width"]').attr("disabled", false);
 		}
 	});

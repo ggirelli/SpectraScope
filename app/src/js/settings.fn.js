@@ -1,3 +1,5 @@
+const fs = require('fs');
+const eset = require('electron-settings');
 
 var empty_settings = {
 	sources : {},
@@ -6,17 +8,11 @@ var empty_settings = {
 	fluorophores : {},
 	microscopes : []
 };
-var default_settings = {
-	sources : {},
-	optical_elements: {
-	},
-	fluorophores : {},
-	microscopes : ["BiCroScope 1", "BiCroScope 2"]
-};
 
 mk_default_settings = function() {
 	// Build factory default settings template
-	eset.set('templates.default', default_settings);
+	var rawdata = fs.readFileSync('./src/data/default.json');
+	eset.set('templates.default', JSON.parse(rawdata));
 	eset.set("selected-template", "default");
 }
 
