@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - ...
 
 ## [0.1.0] - 2019-06-17
-### Changed
+### Added
 - Implemented as an ElectronJS-based app.
 
 ## [0.0.3] - 2019-05-29
