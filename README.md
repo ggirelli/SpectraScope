@@ -10,7 +10,7 @@ SpectraScope is available both as a webpage and as an ElectronJS-based app. You 
 Live demo
 ---
 A live demo of **SpectraScope** webpage is hosted on github, click on the screenshot below to access it.  
-[![demo-screenshot](screenshot.png)](https://ggirelli.github.io/SpectraScope/app.html)
+[![demo-screenshot](screenshot.png)](https://ggirelli.github.io/SpectraScope/web/app.html)
 
 Features
 ---
