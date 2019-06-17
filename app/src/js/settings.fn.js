@@ -1,5 +1,6 @@
 const fs = require('fs');
 const eset = require('electron-settings');
+const app = require('electron').app;
 
 var empty_settings = {
 	sources : {},
@@ -11,7 +12,7 @@ var empty_settings = {
 
 mk_default_settings = function() {
 	// Build factory default settings template
-	var rawdata = fs.readFileSync('./src/data/default.json');
+	var rawdata = fs.readFileSync(app.getAppPath() + '/src/data/default.json');
 	eset.set('templates.default', JSON.parse(rawdata));
 	eset.set("selected-template", "default");
 }
